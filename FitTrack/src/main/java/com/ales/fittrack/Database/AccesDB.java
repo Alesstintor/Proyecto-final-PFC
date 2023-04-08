@@ -13,6 +13,8 @@ public class AccesDB {
     private static StandardServiceRegistry sr;
     private static SessionFactory sf;
     private static Session session;
+    private static boolean opened;
+
 
 
     public static void save(Object obj){
@@ -37,12 +39,18 @@ public class AccesDB {
         sr = new StandardServiceRegistryBuilder().configure().build();
         sf = new MetadataSources(sr).buildMetadata().buildSessionFactory();
         session = sf.openSession();
+        opened = true;
+
     }
 
     public static void close() {
         session.close();
         sf.close();
         sr.close();
+    }
+
+    public static boolean isOpen() {
+        return opened;
     }
 
 

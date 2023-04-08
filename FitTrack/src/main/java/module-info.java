@@ -8,9 +8,12 @@ module com.ales.fittrack {
     requires org.kordamp.bootstrapfx.core;
     requires lombok;
     requires org.hibernate.orm.core;
+    requires jakarta.persistence;
+    requires java.naming;
 
     opens com.ales.fittrack to javafx.fxml;
     exports com.ales.fittrack;
     exports com.ales.fittrack.controllers;
     opens com.ales.fittrack.controllers to javafx.fxml;
+    opens com.ales.fittrack.model to org.hibernate.orm.core;
 }

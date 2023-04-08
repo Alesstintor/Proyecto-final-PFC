@@ -1,17 +1,26 @@
 package com.ales.fittrack.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Data
+@Entity
 public class Record {
 
+    @Id
     private int id;
-    private User user;
-    private Routine routine;
     private Date date;
-    private List<Exercise> recordExerciseList;
+    @ManyToOne
+    private User user;
+    @ManyToOne
+    private Routine routine;
+    @ManyToMany
+    private List<Exercise> exerciseList;
 
 }

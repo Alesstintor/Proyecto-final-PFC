@@ -8,5 +8,16 @@
       <jdbc-url>jdbc:mysql://localhost:3306/fittrack</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="ae8819dc-7f86-4ede-a73e-cf9dcae7d97f">
+      <driver-ref>mysql.8</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/Ales/Documents/Proyecto-final-PFC/FitTrack/src/main/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/fittrack</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>

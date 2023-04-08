@@ -10,8 +10,13 @@
     <property name="connection.password"/>
 
     <!-- DB schema will be updated if needed -->
-    <property name="hibernate.hbm2ddl.auto">update</property>
+    <property name="hibernate.hbm2ddl.auto">create</property>
     <property name="hibernate.format_sql">true</property>
     <property name="hibernate.show_sql">true</property>
+
+    <mapping class="com.ales.fittrack.model.User"/>
+    <mapping class="com.ales.fittrack.model.Routine"/>
+    <mapping class="com.ales.fittrack.model.Exercise"/>
+    <mapping class="com.ales.fittrack.model.Record"/>
   </session-factory>
 </hibernate-configuration>

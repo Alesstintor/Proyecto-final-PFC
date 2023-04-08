@@ -34,4 +34,8 @@ public class WindowsManager {
             throw new RuntimeException(e);
         }
     }
+
+    public static void closeWindow(){
+        stage.close();
+    }
 }
