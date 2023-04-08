@@ -6,6 +6,8 @@ module com.ales.fittrack {
     requires com.dlsc.formsfx;
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
+    requires lombok;
+    requires org.hibernate.orm.core;
 
     opens com.ales.fittrack to javafx.fxml;
     exports com.ales.fittrack;
