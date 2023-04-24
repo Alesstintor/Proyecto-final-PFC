@@ -50,7 +50,7 @@ public class RecordServiceImpl implements IRecordService{
     }
 
     @Override
-    public Record update(Record record) {
+    public String update(Record record) {
         return null;
     }
 }

@@ -50,7 +50,7 @@ public class ExerciseServiceImpl implements IExerciseService{
     }
 
     @Override
-    public Exercise update(Exercise exercise) {
+    public String update(Exercise exercise) {
         return null;
     }
 }

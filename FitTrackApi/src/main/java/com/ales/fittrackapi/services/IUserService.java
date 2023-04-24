@@ -13,6 +13,6 @@ public interface IUserService {
     List<User> saveAll(List<User> users);
     String deleteById(Long id);
     String deleteByExample(User user);
-    User update(User user);
+    String update(User user);
 
 }

@@ -50,7 +50,7 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public User update(User user) {
+    public String update(User user) {
         return null;
     }
 }
