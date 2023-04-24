@@ -26,6 +26,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public List<User> findAllByExample(User user) {
+        System.out.println(Example.of(user));
         return userRepository.findAll(Example.of(user));
     }
 
