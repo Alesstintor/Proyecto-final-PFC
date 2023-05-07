@@ -2,7 +2,6 @@ package com.ales.fittrackmobile
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.ales.fittrackmobile.databinding.ActivityLoginBinding
 import com.ales.fittrackmobile.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,10 +18,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun setWelcomeText() {
 
-        var username = intent.getStringExtra("USERNAME")
-        var password = intent.getStringExtra("PASSWORD")
+        val username = intent.getStringExtra("USERNAME")
+        val password = intent.getStringExtra("PASSWORD")
 
-        var newWelcomeText = "Hello $username, your password is: $password"
+        val newWelcomeText = "Hello $username, your password is: $password"
 
         binding.welcomeText.text = newWelcomeText
 

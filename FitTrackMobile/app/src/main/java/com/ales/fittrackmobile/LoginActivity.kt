@@ -20,15 +20,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onLoginButtonClick() {
 
-        var username = binding.usernameInput.text.toString()
-        var password = binding.passwordInput.text.toString()
+        val username = binding.usernameInput.text.toString()
+        val password = binding.passwordInput.text.toString()
 
-        var intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val intent = Intent(this@LoginActivity, MainActivity::class.java)
+        val homeIntent = Intent(this@LoginActivity, HomeActivity::class.java)
 
         intent.putExtra("USERNAME", username)
         intent.putExtra("PASSWORD", password)
 
-        startActivity(intent)
+        startActivity(homeIntent)
 
     }
 
