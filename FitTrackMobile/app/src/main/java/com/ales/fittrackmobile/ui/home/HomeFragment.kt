@@ -4,12 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ales.fittrackmobile.CustomAdapter
+import com.ales.fittrackmobile.ui.CustomAdapter
 import com.ales.fittrackmobile.HomeActivity
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
 

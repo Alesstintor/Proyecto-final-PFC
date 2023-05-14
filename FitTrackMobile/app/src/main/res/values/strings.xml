@@ -13,5 +13,10 @@
     <string name="title_activity_main2">MainActivity2</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_user_page">Profile</string>
+    <string name="last_workouts_text">Last Workouts</string>
+    <string name="measurements_height">Height</string>
+    <string name="measurements_weight">Weight</string>
+    <string name="measurements_age">Age</string>
+    <string name="measurements_genre">Genre</string>
 </resources>

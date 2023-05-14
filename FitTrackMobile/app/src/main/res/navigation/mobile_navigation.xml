@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.ales.fittrackmobile.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        android:name="com.ales.fittrackmobile.ui.user_page.UserPageFragment"
+        android:label="@string/title_user_page"
+        tools:layout="@layout/fragment_user_page" />
 </navigation>

@@ -23,13 +23,10 @@ class LoginActivity : AppCompatActivity() {
         val username = binding.usernameInput.text.toString()
         val password = binding.passwordInput.text.toString()
 
-        val intent = Intent(this@LoginActivity, MainActivity::class.java)
-        val homeIntent = Intent(this@LoginActivity, HomeActivity::class.java)
+        val intent = Intent(this@LoginActivity, HomeActivity::class.java)
 
-        intent.putExtra("USERNAME", username)
-        intent.putExtra("PASSWORD", password)
 
-        startActivity(homeIntent)
+        startActivity(intent)
 
     }
 

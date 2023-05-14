@@ -1,10 +1,10 @@
-package com.ales.fittrackmobile.ui.notifications
+package com.ales.fittrackmobile.ui.user_page
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class NotificationsViewModel : ViewModel() {
+class UserPageViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is notifications Fragment"

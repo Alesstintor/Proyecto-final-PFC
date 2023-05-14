@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile.ui.notifications
+package com.ales.fittrackmobile.ui.user_page
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,11 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.ales.fittrackmobile.databinding.FragmentNotificationsBinding
+import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
 
-class NotificationsFragment : Fragment() {
+class UserPageFragment : Fragment() {
 
-    private var _binding: FragmentNotificationsBinding? = null
+    private var _binding: FragmentUserPageBinding? = null
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -22,15 +22,15 @@ class NotificationsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+        val userPageViewModel =
+            ViewModelProvider(this).get(UserPageViewModel::class.java)
 
-        _binding = FragmentNotificationsBinding.inflate(inflater, container, false)
+        _binding = FragmentUserPageBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textNotifications
-        notificationsViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
+        val username: TextView = binding.username
+        userPageViewModel.text.observe(viewLifecycleOwner) {
+            username.text = it
         }
         return root
     }
