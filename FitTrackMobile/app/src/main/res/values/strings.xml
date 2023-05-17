@@ -19,4 +19,10 @@
     <string name="measurements_weight">Weight</string>
     <string name="measurements_age">Age</string>
     <string name="measurements_genre">Genre</string>
+    <string name="edit_profile_button_text">Edit Profile</string>
+    <string name="height_edit_hint">Height</string>
+    <string name="weight_edit_hint">Weight</string>
+    <string name="age_edit_hint">Age</string>
+    <string name="genre_edit_hint">Genre</string>
+    <string name="done_edit_button_text">Done</string>
 </resources>
