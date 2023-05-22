@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.HomeActivity
+import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
 import com.ales.fittrackmobile.ui.CustomAdapter
 
@@ -22,7 +23,9 @@ class UserPageFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var editProfile: Button ;
+    private lateinit var editProfile: Button
+
+    private val userContext: UserContext = UserContext()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,6 +43,8 @@ class UserPageFragment : Fragment() {
             username.text = it
         }
 
+        loadUser()
+
         val recyclerView = binding.workoutsList
 
         recyclerView.setHasFixedSize(true)
@@ -55,6 +60,14 @@ class UserPageFragment : Fragment() {
         editProfile.setOnClickListener{onEditProfileButtonClick()}
 
         return root
+    }
+
+    private fun loadUser() {
+        binding.username.text = userContext.getUsername()
+        binding.heightValue.text = userContext.getHeight().toString()
+        binding.weightValue.text = userContext.getWeight().toString()
+        binding.ageValue.text = userContext.getAge().toString()
+        binding.genreValue.text = userContext.getGenre()
     }
 
     fun onEditProfileButtonClick() {
