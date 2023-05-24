@@ -4,7 +4,9 @@ import com.ales.fittrackapi.entities.Routine;
 import com.ales.fittrackapi.repositories.RoutineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,16 +44,31 @@ public class RoutineServiceImpl implements IRoutineService{
 
     @Override
     public String deleteById(Long id) {
-        return null;
+        Routine routineToDelete = findById(id);
+        if (routineToDelete == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No routine found with id: " + id) ;
+
+        routineRepository.deleteById(id);
+        return "Record with id: " + id + ", deleted successfully";
     }
 
     @Override
     public String deleteByExample(Routine routine) {
-        return null;
+        List<Routine> routinesToDelete = findAllByExample(routine);
+        if (routinesToDelete.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No routine was found with given example");
+
+        routineRepository.deleteAll(routinesToDelete);
+        return routinesToDelete.size() + " routines deleted successfully";
     }
 
+
     @Override
-    public String update(Routine routine) {
-        return null;
+    public Routine update(Routine routine) {
+        Routine routineToUpdate = findById(routine.getId());
+        if (routineToUpdate == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No routine found with id " + routine.getId());
+
+        return routineRepository.save(routine);
     }
 }

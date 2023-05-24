@@ -4,7 +4,9 @@ import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -42,16 +44,31 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public String deleteById(Long id) {
-        return null;
+        User userToDelete = findById(id);
+        if (userToDelete == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found with id: " + id) ;
+
+        userRepository.deleteById(id);
+        return "User with id: " + id + ", deleted successfully";
     }
 
     @Override
     public String deleteByExample(User user) {
-        return null;
+        List<User> usersToDelete = findAllByExample(user);
+        if (usersToDelete.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user was found with given example");
+
+        userRepository.deleteAll(usersToDelete);
+        return usersToDelete.size() + " users deleted successfully";
     }
 
+
     @Override
-    public String update(User user) {
-        return null;
+    public User update(User user) {
+        User userToUpdate = findById(user.getId());
+        if (userToUpdate == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found with id " + user.getId());
+
+        return userRepository.save(user);
     }
 }

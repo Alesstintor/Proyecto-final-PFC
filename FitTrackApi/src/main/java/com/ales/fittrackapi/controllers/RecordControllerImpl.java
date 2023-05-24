@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/record")
-public class RecordController implements IRecordController{
+public class RecordControllerImpl implements IRecordController{
 
     @Autowired
     IRecordService recordService;
@@ -50,7 +50,7 @@ public class RecordController implements IRecordController{
     }
 
     @PutMapping
-    public String update(@RequestBody Record record) {
+    public Record update(@RequestBody Record record) {
         return recordService.update(record);
     }
 

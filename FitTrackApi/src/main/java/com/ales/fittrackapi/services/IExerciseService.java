@@ -13,5 +13,5 @@ public interface IExerciseService {
     List<Exercise> saveAll(List<Exercise> exercises);
     String deleteById(Long id);
     String deleteByExample(Exercise exercise);
-    String update(Exercise exercise);
+    Exercise update(Exercise exercise);
 }

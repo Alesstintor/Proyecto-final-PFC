@@ -4,7 +4,9 @@ import com.ales.fittrackapi.entities.Record;
 import com.ales.fittrackapi.repositories.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,16 +43,31 @@ public class RecordServiceImpl implements IRecordService{
 
     @Override
     public String deleteById(Long id) {
-        return null;
+        Record recordToDelete = findById(id);
+        if (recordToDelete == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found with id: " + id) ;
+
+        recordRepository.deleteById(id);
+        return "Record with id: " + id + ", deleted successfully";
     }
 
     @Override
     public String deleteByExample(Record record) {
-        return null;
+        List<Record> recordsToDelete = findAllByExample(record);
+        if (recordsToDelete.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record was found with given example");
+
+        recordRepository.deleteAll(recordsToDelete);
+        return recordsToDelete.size() + " records deleted successfully";
     }
 
+
     @Override
-    public String update(Record record) {
-        return null;
+    public Record update(Record record) {
+        Record recordToUpdate = findById(record.getId());
+        if (recordToUpdate == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found with id " + record.getId());
+
+        return recordRepository.save(record);
     }
 }

@@ -29,5 +29,5 @@ interface IUserController {
     String deleteByExample(@RequestBody User user);
 
     @PutMapping
-    String update(@RequestBody User user);
+    User update(@RequestBody User user);
 }

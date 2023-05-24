@@ -29,5 +29,5 @@ public interface IExerciseController {
     String deleteByExample(@RequestBody Exercise exercise);
 
     @PutMapping
-    String update(@RequestBody Exercise exercise);
+    Exercise update(@RequestBody Exercise exercise);
 }

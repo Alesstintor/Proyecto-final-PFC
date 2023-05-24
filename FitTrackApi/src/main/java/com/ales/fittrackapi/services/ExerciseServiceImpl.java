@@ -4,7 +4,9 @@ import com.ales.fittrackapi.entities.Exercise;
 import com.ales.fittrackapi.repositories.ExerciseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,16 +43,31 @@ public class ExerciseServiceImpl implements IExerciseService{
 
     @Override
     public String deleteById(Long id) {
-        return null;
+        Exercise exerciseToDelete = findById(id);
+        if (exerciseToDelete == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No exercise found with id: " + id) ;
+
+        exerciseRepository.deleteById(id);
+        return "Exercise with id: " + id + ", deleted successfully";
     }
 
     @Override
     public String deleteByExample(Exercise exercise) {
-        return null;
+        List<Exercise> exercisesToDelete = findAllByExample(exercise);
+        if (exercisesToDelete.isEmpty())
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No exercise was found with given example");
+
+        exerciseRepository.deleteAll(exercisesToDelete);
+        return exercisesToDelete.size() + " exercises deleted successfully";
     }
 
+
     @Override
-    public String update(Exercise exercise) {
-        return null;
+    public Exercise update(Exercise exercise) {
+        Exercise exerciseToUpdate = findById(exercise.getId());
+        if (exerciseToUpdate == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No exercise found with id " + exercise.getId());
+
+        return exerciseRepository.save(exercise);
     }
 }

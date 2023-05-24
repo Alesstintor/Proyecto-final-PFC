@@ -13,5 +13,5 @@ public interface IRecordService {
     List<Record> saveAll(List<Record> records);
     String deleteById(Long id);
     String deleteByExample(Record record);
-    String update(Record record);
+    Record update(Record record);
 }

@@ -1,6 +1,6 @@
 package com.ales.fittrackapi.controllers;
 
-import com.ales.fittrackapi.entities.Record;
+import com.ales.fittrackapi.entities.Routine;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -8,26 +8,26 @@ import java.util.List;
 interface IRoutineController {
 
     @GetMapping("/all")
-    List<Record> findAll();
+    List<Routine> findAll();
 
     @GetMapping("/{id}")
-    Record findById(@PathVariable Long id);
+    Routine findById(@PathVariable Long id);
 
     @GetMapping("/likeExample")
-    List<Record> findAllByExample(@RequestBody Record record);
+    List<Routine> findAllByExample(@RequestBody Routine routine);
 
     @PostMapping
-    Record save(@RequestBody Record record);
+    Routine save(@RequestBody Routine routine);
 
     @PostMapping("/saveList")
-    List<Record> saveAll(@RequestBody List<Record> records);
+    List<Routine> saveAll(@RequestBody List<Routine> routines);
 
     @DeleteMapping("/delete/{id}")
     String deleteById(@PathVariable Long id);
 
     @DeleteMapping("/delete/likeExample")
-    String deleteByExample(@RequestBody Record record);
+    String deleteByExample(@RequestBody Routine routine);
 
     @PutMapping
-    String update(@RequestBody Record record);
+    Routine update(@RequestBody Routine routine);
 }

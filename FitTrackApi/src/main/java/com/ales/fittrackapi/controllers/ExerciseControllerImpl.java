@@ -50,7 +50,7 @@ public class ExerciseControllerImpl implements IExerciseController{
     }
 
     @PutMapping
-    public String update(@RequestBody Exercise exercise) {
+    public Exercise update(@RequestBody Exercise exercise) {
         return exerciseService.update(exercise);
     }
 

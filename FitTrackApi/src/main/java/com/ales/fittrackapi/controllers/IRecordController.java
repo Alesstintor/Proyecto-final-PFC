@@ -29,5 +29,5 @@ public interface IRecordController {
     String deleteByExample(@RequestBody Record record);
 
     @PutMapping
-    String update(@RequestBody Record record);
+    Record update(@RequestBody Record record);
 }

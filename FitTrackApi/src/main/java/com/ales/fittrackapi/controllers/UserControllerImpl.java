@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserControllerImpl implements IUserController{
 
     @Autowired
     IUserService userService;
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PutMapping
-    public String update(@RequestBody User user) {
+    public User update(@RequestBody User user) {
         return userService.update(user);
     }
 
