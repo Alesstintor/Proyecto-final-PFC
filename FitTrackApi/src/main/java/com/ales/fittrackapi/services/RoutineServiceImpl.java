@@ -24,7 +24,7 @@ public class RoutineServiceImpl implements IRoutineService{
 
     @Override
     public Routine findById(Long id) {
-        return routineRepository.findById(id).orElse(null);
+        return routineRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -34,6 +34,7 @@ public class RoutineServiceImpl implements IRoutineService{
 
     @Override
     public Routine save(Routine routine) {
+
         return routineRepository.save(routine);
     }
 
@@ -43,32 +44,23 @@ public class RoutineServiceImpl implements IRoutineService{
     }
 
     @Override
-    public String deleteById(Long id) {
-        Routine routineToDelete = findById(id);
-        if (routineToDelete == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No routine found with id: " + id) ;
-
-        routineRepository.deleteById(id);
-        return "Record with id: " + id + ", deleted successfully";
+    public void deleteById(Long id) {
+        routineRepository.delete(findById(id));
     }
 
     @Override
-    public String deleteByExample(Routine routine) {
+    public void deleteByExample(Routine routine) {
         List<Routine> routinesToDelete = findAllByExample(routine);
         if (routinesToDelete.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No routine was found with given example");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         routineRepository.deleteAll(routinesToDelete);
-        return routinesToDelete.size() + " routines deleted successfully";
     }
 
 
     @Override
     public Routine update(Routine routine) {
-        Routine routineToUpdate = findById(routine.getId());
-        if (routineToUpdate == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No routine found with id " + routine.getId());
-
+        findById(routine.getId());
         return routineRepository.save(routine);
     }
 }

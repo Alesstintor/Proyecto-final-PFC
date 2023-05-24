@@ -11,7 +11,7 @@ public interface IRecordService {
     List<Record> findAllByExample(Record record);
     Record save(Record record);
     List<Record> saveAll(List<Record> records);
-    String deleteById(Long id);
-    String deleteByExample(Record record);
+    void deleteById(Long id);
+    void deleteByExample(Record record);
     Record update(Record record);
 }

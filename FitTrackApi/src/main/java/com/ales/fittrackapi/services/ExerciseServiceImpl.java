@@ -23,7 +23,7 @@ public class ExerciseServiceImpl implements IExerciseService{
 
     @Override
     public Exercise findById(Long id) {
-        return exerciseRepository.findById(id).orElse(null);
+        return exerciseRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -42,32 +42,22 @@ public class ExerciseServiceImpl implements IExerciseService{
     }
 
     @Override
-    public String deleteById(Long id) {
-        Exercise exerciseToDelete = findById(id);
-        if (exerciseToDelete == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No exercise found with id: " + id) ;
-
-        exerciseRepository.deleteById(id);
-        return "Exercise with id: " + id + ", deleted successfully";
+    public void deleteById(Long id) {
+        exerciseRepository.delete(findById(id));
     }
 
     @Override
-    public String deleteByExample(Exercise exercise) {
+    public void deleteByExample(Exercise exercise) {
         List<Exercise> exercisesToDelete = findAllByExample(exercise);
         if (exercisesToDelete.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No exercise was found with given example");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         exerciseRepository.deleteAll(exercisesToDelete);
-        return exercisesToDelete.size() + " exercises deleted successfully";
     }
-
 
     @Override
     public Exercise update(Exercise exercise) {
-        Exercise exerciseToUpdate = findById(exercise.getId());
-        if (exerciseToUpdate == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No exercise found with id " + exercise.getId());
-
+        findById(exercise.getId());
         return exerciseRepository.save(exercise);
     }
 }

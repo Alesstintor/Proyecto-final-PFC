@@ -3,18 +3,19 @@ package com.ales.fittrackapi.controllers;
 import com.ales.fittrackapi.entities.Record;
 import com.ales.fittrackapi.services.IRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/record")
+@RequestMapping("/records")
 public class RecordControllerImpl implements IRecordController{
 
     @Autowired
     IRecordService recordService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Record> findAll() {
         return recordService.findAll();
     }
@@ -30,23 +31,27 @@ public class RecordControllerImpl implements IRecordController{
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Record save(@RequestBody Record record) {
         return recordService.save(record);
     }
 
     @PostMapping("/saveList")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<Record> saveAll(@RequestBody List<Record> records) {
         return recordService.saveAll(records);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteById(@PathVariable Long id) {
-        return recordService.deleteById(id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        recordService.deleteById(id);
     }
 
-    @DeleteMapping("/delete/likeExample")
-    public String deleteByExample(@RequestBody Record record) {
-        return recordService.deleteByExample(record);
+    @DeleteMapping("/likeExample")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByExample(@RequestBody Record record) {
+        recordService.deleteByExample(record);
     }
 
     @PutMapping

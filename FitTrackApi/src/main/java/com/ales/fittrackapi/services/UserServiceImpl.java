@@ -23,7 +23,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public User findById(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -43,32 +43,23 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
-    public String deleteById(Long id) {
-        User userToDelete = findById(id);
-        if (userToDelete == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found with id: " + id) ;
-
-        userRepository.deleteById(id);
-        return "User with id: " + id + ", deleted successfully";
+    public void deleteById(Long id) {
+        userRepository.delete(findById(id));
     }
 
     @Override
-    public String deleteByExample(User user) {
+    public void deleteByExample(User user) {
         List<User> usersToDelete = findAllByExample(user);
         if (usersToDelete.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user was found with given example");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         userRepository.deleteAll(usersToDelete);
-        return usersToDelete.size() + " users deleted successfully";
     }
 
 
     @Override
     public User update(User user) {
-        User userToUpdate = findById(user.getId());
-        if (userToUpdate == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found with id " + user.getId());
-
+        findById(user.getId());
         return userRepository.save(user);
     }
 }

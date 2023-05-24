@@ -17,6 +17,7 @@ public class Record {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date date;
     @ManyToOne
     private User user;

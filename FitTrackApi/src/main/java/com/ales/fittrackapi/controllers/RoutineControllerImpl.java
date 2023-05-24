@@ -3,18 +3,19 @@ package com.ales.fittrackapi.controllers;
 import com.ales.fittrackapi.entities.Routine;
 import com.ales.fittrackapi.services.IRoutineService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/routine")
+@RequestMapping("/routines")
 public class RoutineControllerImpl implements IRoutineController{
 
     @Autowired
     IRoutineService routineService;
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Routine> findAll() {
         return routineService.findAll();
     }
@@ -30,27 +31,32 @@ public class RoutineControllerImpl implements IRoutineController{
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Routine save(@RequestBody Routine routine) {
         return routineService.save(routine);
     }
 
     @PostMapping("/saveList")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<Routine> saveAll(@RequestBody List<Routine> routines) {
         return routineService.saveAll(routines);
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteById(@PathVariable Long id) {
-        return routineService.deleteById(id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long id) {
+        routineService.deleteById(id);
     }
 
-    @DeleteMapping("/delete/likeExample")
-    public String deleteByExample(@RequestBody Routine routine) {
-        return routineService.deleteByExample(routine);
+    @DeleteMapping("/likeExample")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteByExample(@RequestBody Routine routine) {
+        routineService.deleteByExample(routine);
     }
 
     @PutMapping
     public Routine update(@RequestBody Routine routine) {
+        System.out.println(routine);
         return routineService.update(routine);
     }
 

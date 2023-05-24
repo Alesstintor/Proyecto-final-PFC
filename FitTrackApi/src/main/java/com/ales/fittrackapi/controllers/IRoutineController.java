@@ -1,13 +1,16 @@
 package com.ales.fittrackapi.controllers;
 
 import com.ales.fittrackapi.entities.Routine;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/routines")
 interface IRoutineController {
 
-    @GetMapping("/all")
+    @GetMapping
     List<Routine> findAll();
 
     @GetMapping("/{id}")
@@ -17,16 +20,20 @@ interface IRoutineController {
     List<Routine> findAllByExample(@RequestBody Routine routine);
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     Routine save(@RequestBody Routine routine);
 
     @PostMapping("/saveList")
+    @ResponseStatus(HttpStatus.CREATED)
     List<Routine> saveAll(@RequestBody List<Routine> routines);
 
-    @DeleteMapping("/delete/{id}")
-    String deleteById(@PathVariable Long id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteById(@PathVariable Long id);
 
-    @DeleteMapping("/delete/likeExample")
-    String deleteByExample(@RequestBody Routine routine);
+    @DeleteMapping("/likeExample")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteByExample(@RequestBody Routine routine);
 
     @PutMapping
     Routine update(@RequestBody Routine routine);

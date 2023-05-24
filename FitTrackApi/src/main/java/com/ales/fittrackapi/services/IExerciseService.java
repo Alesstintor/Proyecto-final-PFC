@@ -11,7 +11,7 @@ public interface IExerciseService {
     List<Exercise> findAllByExample(Exercise exercise);
     Exercise save(Exercise exercise);
     List<Exercise> saveAll(List<Exercise> exercises);
-    String deleteById(Long id);
-    String deleteByExample(Exercise exercise);
+    void deleteById(Long id);
+    void deleteByExample(Exercise exercise);
     Exercise update(Exercise exercise);
 }

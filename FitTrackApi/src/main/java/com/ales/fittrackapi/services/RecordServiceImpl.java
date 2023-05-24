@@ -23,7 +23,7 @@ public class RecordServiceImpl implements IRecordService{
 
     @Override
     public Record findById(Long id) {
-        return recordRepository.findById(id).orElse(null);
+        return recordRepository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     @Override
@@ -42,32 +42,22 @@ public class RecordServiceImpl implements IRecordService{
     }
 
     @Override
-    public String deleteById(Long id) {
-        Record recordToDelete = findById(id);
-        if (recordToDelete == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found with id: " + id) ;
-
-        recordRepository.deleteById(id);
-        return "Record with id: " + id + ", deleted successfully";
+    public void deleteById(Long id) {
+        recordRepository.delete(findById(id));
     }
 
     @Override
-    public String deleteByExample(Record record) {
+    public void deleteByExample(Record record) {
         List<Record> recordsToDelete = findAllByExample(record);
         if (recordsToDelete.isEmpty())
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record was found with given example");
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 
         recordRepository.deleteAll(recordsToDelete);
-        return recordsToDelete.size() + " records deleted successfully";
     }
-
 
     @Override
     public Record update(Record record) {
-        Record recordToUpdate = findById(record.getId());
-        if (recordToUpdate == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No record found with id " + record.getId());
-
+        findById(record.getId());
         return recordRepository.save(record);
     }
 }

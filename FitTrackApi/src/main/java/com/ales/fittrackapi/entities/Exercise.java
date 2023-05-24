@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -22,6 +21,4 @@ public class Exercise {
     private String type;
     @ElementCollection
     private Set<String> muscles;
-    @ManyToMany(mappedBy = "exerciseList")
-    private List<Record> recordList;
 }

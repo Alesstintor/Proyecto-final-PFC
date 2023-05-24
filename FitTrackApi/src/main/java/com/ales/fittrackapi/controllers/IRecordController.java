@@ -1,13 +1,16 @@
 package com.ales.fittrackapi.controllers;
 
 import com.ales.fittrackapi.entities.Record;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/records")
 public interface IRecordController {
 
-    @GetMapping("/all")
+    @GetMapping
     List<Record> findAll();
 
     @GetMapping("/{id}")
@@ -17,16 +20,20 @@ public interface IRecordController {
     List<Record> findAllByExample(@RequestBody Record record);
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     Record save(@RequestBody Record record);
 
     @PostMapping("/saveList")
+    @ResponseStatus(HttpStatus.CREATED)
     List<Record> saveAll(@RequestBody List<Record> records);
 
-    @DeleteMapping("/delete/{id}")
-    String deleteById(@PathVariable Long id);
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteById(@PathVariable Long id);
 
-    @DeleteMapping("/delete/likeExample")
-    String deleteByExample(@RequestBody Record record);
+    @DeleteMapping("/likeExample")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void deleteByExample(@RequestBody Record record);
 
     @PutMapping
     Record update(@RequestBody Record record);

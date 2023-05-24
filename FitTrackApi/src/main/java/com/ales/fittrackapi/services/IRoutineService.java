@@ -11,7 +11,7 @@ public interface IRoutineService {
     List<Routine> findAllByExample(Routine routine);
     Routine save(Routine routine);
     List<Routine> saveAll(List<Routine> routines);
-    String deleteById(Long id);
-    String deleteByExample(Routine routine);
+    void deleteById(Long id);
+    void deleteByExample(Routine routine);
     Routine update(Routine routine);
 }
