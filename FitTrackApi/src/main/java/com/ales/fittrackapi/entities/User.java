@@ -18,6 +18,7 @@ public class User {
     private String type;
     private String name;
     private String surname;
+    private String username;
     private int age;
     private double weight;
     private int height;
