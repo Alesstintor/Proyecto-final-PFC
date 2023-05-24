@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exercise")
-public class ExerciseController {
+public class ExerciseControllerImpl implements IExerciseController{
 
     @Autowired
     IExerciseService exerciseService;

@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/record")
-public class RecordController {
+public class RecordController implements IRecordController{
 
     @Autowired
     IRecordService recordService;

@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.ales.fittrackmobile.HomeActivity
-import com.ales.fittrackmobile.context.UserContext
+import com.ales.fittrackmobile.context.UserContextModel
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
 
 class UserPageEditView : AppCompatActivity() {
@@ -13,7 +13,7 @@ class UserPageEditView : AppCompatActivity() {
     private lateinit var binding: ActivityUserPageEditViewBinding
     private lateinit var doneButton: Button
 
-    private val userContext: UserContext = UserContext()
+    private val userContextModel: UserContextModel = UserContextModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +31,19 @@ class UserPageEditView : AppCompatActivity() {
         val intent = Intent(this@UserPageEditView, HomeActivity::class.java)
         startActivity(intent)
 
-        userContext.setUsername(binding.usernameValueEdit.text.toString())
-        userContext.setWeight(binding.weightValueEdit.text.toString().toDouble())
-        userContext.setHeight(binding.heightValueEdit.text.toString().toDouble())
-        userContext.setAge(binding.ageValueEdit.text.toString().toInt())
-        userContext.setGenre(binding.genreValueEdit.toString())
+        userContextModel.setUsername(binding.usernameValueEdit.text.toString())
+        userContextModel.setWeight(binding.weightValueEdit.text.toString().toDouble())
+        userContextModel.setHeight(binding.heightValueEdit.text.toString().toDouble())
+        userContextModel.setAge(binding.ageValueEdit.text.toString().toInt())
+        userContextModel.setGenre(binding.genreValueEdit.toString())
     }
 
     private fun loadUser() {
-        binding.usernameValueEdit.setText(userContext.getUsername())
-        binding.heightValueEdit.setText(userContext.getHeight().toString())
-        binding.weightValueEdit.setText(userContext.getWeight().toString())
-        binding.genreValueEdit.setText(userContext.getGenre())
-        binding.ageValueEdit.setText(userContext.getAge().toString())
+        binding.usernameValueEdit.setText(userContextModel.getUsername())
+        binding.heightValueEdit.setText(userContextModel.getHeight().toString())
+        binding.weightValueEdit.setText(userContextModel.getWeight().toString())
+        binding.genreValueEdit.setText(userContextModel.getGenre())
+        binding.ageValueEdit.setText(userContextModel.getAge().toString())
     }
 
 }
