@@ -1,5 +1,6 @@
 package com.ales.fittrackmobile.api
 
+import com.ales.fittrackmobile.entities.Record
 import com.ales.fittrackmobile.entities.User
 import retrofit2.Call
 import retrofit2.http.Body
@@ -13,4 +14,7 @@ interface ApiAccess {
 
     @POST("/users")
     fun updateUser(@Body user: User): Call<User>
+
+    @GET("/records/byUser/{id}")
+    fun findRecords(@Path("id") id: Long): Call<List<Record>>
 }

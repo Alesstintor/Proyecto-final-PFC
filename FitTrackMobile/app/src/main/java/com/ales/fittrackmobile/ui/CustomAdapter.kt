@@ -6,10 +6,10 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ales.fittrackmobile.HomeActivity
 import com.ales.fittrackmobile.R
+import com.ales.fittrackmobile.entities.Record
 
-class CustomAdapter(private val data: Array<HomeActivity.Exercise>) :
+class CustomAdapter(private val data: Array<Record>) :
     RecyclerView.Adapter<CustomAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -17,9 +17,9 @@ class CustomAdapter(private val data: Array<HomeActivity.Exercise>) :
         val lblTitulo = view.findViewById(R.id.list_item_title) as TextView
         val lblSubtitulo = view.findViewById(R.id.list_item_description) as TextView
 
-        fun bindItem(exercise: HomeActivity.Exercise){
-            lblTitulo.text = exercise.title
-            lblSubtitulo.text = exercise.subtitle
+        fun bindItem(record: Record){
+            lblTitulo.text = record.routine.name
+            lblSubtitulo.text = record.date.toString()
         }
     }
 

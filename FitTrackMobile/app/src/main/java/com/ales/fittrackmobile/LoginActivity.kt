@@ -30,6 +30,7 @@ class LoginActivity : AppCompatActivity() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
 
         userContext.fetchUserData(this@LoginActivity)
+        userContext.findRecords(this@LoginActivity)
 
         startActivity(intent)
 
