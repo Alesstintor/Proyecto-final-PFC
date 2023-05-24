@@ -13,7 +13,7 @@ class UserPageEditView : AppCompatActivity() {
     private lateinit var binding: ActivityUserPageEditViewBinding
     private lateinit var doneButton: Button
 
-    private val userContext: UserContext = UserContext.getInstance()
+    private lateinit var userContext: UserContext
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +21,8 @@ class UserPageEditView : AppCompatActivity() {
         setContentView(binding.root)
 
         doneButton = binding.doneEditButton
+
+        userContext = UserContext.getInstance()
 
         loadUser()
 
@@ -32,7 +34,9 @@ class UserPageEditView : AppCompatActivity() {
         userContext.user.weight = binding.weightValueEdit.text.toString().toDouble()
         userContext.user.height = binding.heightValueEdit.text.toString().toDouble()
         userContext.user.age = binding.ageValueEdit.text.toString().toInt()
-        userContext.user.genre = binding.genreValueEdit.toString()
+        userContext.user.genre = binding.genreValueEdit.text.toString()
+
+        userContext.persistUserData(this@UserPageEditView)
 
         val intent = Intent(this@UserPageEditView, HomeActivity::class.java)
         startActivity(intent)

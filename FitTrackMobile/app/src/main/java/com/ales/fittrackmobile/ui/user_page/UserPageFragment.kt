@@ -7,9 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.HomeActivity
+import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
 import com.ales.fittrackmobile.ui.CustomAdapter
 
@@ -23,18 +23,39 @@ class UserPageFragment : Fragment() {
 
     private lateinit var editProfile: Button
 
+    private lateinit var userContext: UserContext
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val userPageViewModel =
-            ViewModelProvider(this).get(UserPageViewModel::class.java)
-
         _binding = FragmentUserPageBinding.inflate(inflater, container, false)
 
         val root: View = binding.root
 
+        userContext = UserContext.getInstance()
+
+        createRecyclerView()
+
+        loadUser()
+
+        editProfile = binding.editProfileButton
+
+        editProfile.setOnClickListener{onEditProfileButtonClick()}
+
+        return root
+    }
+
+    private fun loadUser() {
+        binding.username.text = userContext.user.username
+        binding.heightValue.text = userContext.user.height.toString()
+        binding.weightValue.text = userContext.user.weight.toString()
+        binding.ageValue.text = userContext.user.age.toString()
+        binding.genreValue.text = userContext.user.genre
+    }
+
+    private fun createRecyclerView() {
         val recyclerView = binding.workoutsList
 
         recyclerView.setHasFixedSize(true)
@@ -44,12 +65,6 @@ class UserPageFragment : Fragment() {
         val data = Array(10){i -> HomeActivity.Exercise("Title $i", "Subtitle $i")}
 
         recyclerView.adapter = CustomAdapter(data)
-
-        editProfile = binding.editProfileButton
-
-        editProfile.setOnClickListener{onEditProfileButtonClick()}
-
-        return root
     }
 
     fun onEditProfileButtonClick() {
