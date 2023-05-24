@@ -1,6 +1,7 @@
 package com.ales.fittrackapi.services;
 
 import com.ales.fittrackapi.entities.Record;
+import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.repositories.RecordRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -16,6 +17,9 @@ public class RecordServiceImpl implements IRecordService{
     @Autowired
     RecordRepository recordRepository;
 
+    @Autowired
+    IUserService userService;
+
     @Override
     public List<Record> findAll() {
         return recordRepository.findAll();
@@ -29,6 +33,12 @@ public class RecordServiceImpl implements IRecordService{
     @Override
     public List<Record> findAllByExample(Record record) {
         return recordRepository.findAll(Example.of(record));
+    }
+
+    @Override
+    public List<Record> findAllByUser(Long id) {
+        User user = userService.findById(id);
+        return recordRepository.findAllByUser(user);
     }
 
     @Override

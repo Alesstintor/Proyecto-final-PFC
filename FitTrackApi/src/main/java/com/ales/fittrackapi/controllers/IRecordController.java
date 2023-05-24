@@ -19,6 +19,9 @@ public interface IRecordController {
     @GetMapping("/likeExample")
     List<Record> findAllByExample(@RequestBody Record record);
 
+    @GetMapping("/byUser/{id}")
+    List<Record> findAllByUser(@PathVariable Long id);
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     Record save(@RequestBody Record record);

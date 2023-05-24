@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data
 @Entity
@@ -20,5 +20,6 @@ public class Exercise {
     private String description;
     private String type;
     @ElementCollection
-    private Set<String> muscles;
+    @Enumerated(EnumType.STRING)
+    private List<Muscles> muscles;
 }

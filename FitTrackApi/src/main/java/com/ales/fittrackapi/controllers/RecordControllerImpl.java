@@ -30,6 +30,11 @@ public class RecordControllerImpl implements IRecordController{
         return recordService.findAllByExample(record);
     }
 
+    @GetMapping("/byUser/{id}")
+    public List<Record> findAllByUser(@PathVariable Long id) {
+        return recordService.findAllByUser(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Record save(@RequestBody Record record) {
