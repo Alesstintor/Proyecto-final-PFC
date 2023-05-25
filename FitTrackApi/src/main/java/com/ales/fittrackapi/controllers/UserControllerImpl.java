@@ -3,7 +3,6 @@ package com.ales.fittrackapi.controllers;
 import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,41 +19,37 @@ public class UserControllerImpl implements IUserController{
         return userService.findAll();
     }
 
-    @GetMapping("/{id}")
-    public User findById(@PathVariable Long id) {
+    @Override
+    public User findById(Long id) {
         return userService.findById(id);
     }
 
-    @GetMapping("/likeExample")
-    public List<User> findAllByExample(@RequestBody User user) {
+    @Override
+    public List<User> findAllByExample(User user) {
         return userService.findAllByExample(user);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public User save(@RequestBody User user) {
+    @Override
+    public User save(User user) {
         return userService.save(user);
     }
 
-    @PostMapping("/saveList")
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public List<User> saveAll(@RequestBody List<User> users) {
         return userService.saveAll(users);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable Long id) {
+    @Override
+    public void deleteById(Long id) {
         userService.deleteById(id);
     }
 
-    @DeleteMapping("/likeExample")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteByExample(@RequestBody User user) {
         userService.deleteByExample(user);
     }
 
-    @PutMapping
+    @Override
     public User update(@RequestBody User user) {
         return userService.update(user);
     }

@@ -19,7 +19,7 @@ interface IUserController {
     @GetMapping("/likeExample")
     List<User> findAllByExample(@RequestBody User user);
 
-    @PostMapping
+    @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
     User save(@RequestBody User user);
 
