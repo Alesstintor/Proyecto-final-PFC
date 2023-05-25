@@ -1,6 +1,7 @@
-package com.ales.fittrackapi.authentication;
+package com.ales.fittrackapi.services.auth;
 
 import com.ales.fittrackapi.entities.User;
+import com.ales.fittrackapi.entities.auth.MyUserDetails;
 import com.ales.fittrackapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +18,7 @@ public class MyUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Username does not exist"));
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
         return new MyUserDetails(user);
     }
 }

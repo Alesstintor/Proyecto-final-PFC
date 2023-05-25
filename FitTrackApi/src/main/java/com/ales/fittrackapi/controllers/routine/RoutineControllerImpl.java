@@ -1,7 +1,7 @@
-package com.ales.fittrackapi.controllers;
+package com.ales.fittrackapi.controllers.routine;
 
 import com.ales.fittrackapi.entities.Routine;
-import com.ales.fittrackapi.services.IRoutineService;
+import com.ales.fittrackapi.services.routine.IRoutineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/routines")
-public class RoutineControllerImpl implements IRoutineController{
+public class RoutineControllerImpl implements IRoutineController {
 
     @Autowired
     IRoutineService routineService;

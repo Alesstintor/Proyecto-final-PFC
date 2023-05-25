@@ -1,4 +1,4 @@
-package com.ales.fittrackapi.authentication;
+package com.ales.fittrackapi.entities.auth;
 
 import com.ales.fittrackapi.entities.User;
 import lombok.AllArgsConstructor;

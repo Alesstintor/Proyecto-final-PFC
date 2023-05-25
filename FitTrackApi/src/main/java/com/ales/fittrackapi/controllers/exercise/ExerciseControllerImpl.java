@@ -1,7 +1,7 @@
-package com.ales.fittrackapi.controllers;
+package com.ales.fittrackapi.controllers.exercise;
 
 import com.ales.fittrackapi.entities.Exercise;
-import com.ales.fittrackapi.services.IExerciseService;
+import com.ales.fittrackapi.services.exercise.IExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/exercises")
-public class ExerciseControllerImpl implements IExerciseController{
+public class ExerciseControllerImpl implements IExerciseController {
 
     @Autowired
     IExerciseService exerciseService;

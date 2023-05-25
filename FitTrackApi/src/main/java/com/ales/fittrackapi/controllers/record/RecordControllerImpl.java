@@ -1,7 +1,7 @@
-package com.ales.fittrackapi.controllers;
+package com.ales.fittrackapi.controllers.record;
 
 import com.ales.fittrackapi.entities.Record;
-import com.ales.fittrackapi.services.IRecordService;
+import com.ales.fittrackapi.services.record.IRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/records")
-public class RecordControllerImpl implements IRecordController{
+public class RecordControllerImpl implements IRecordController {
 
     @Autowired
     IRecordService recordService;

@@ -1,4 +1,4 @@
-package com.ales.fittrackapi.services;
+package com.ales.fittrackapi.services.routine;
 
 import com.ales.fittrackapi.entities.Routine;
 

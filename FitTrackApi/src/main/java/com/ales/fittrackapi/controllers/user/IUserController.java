@@ -1,4 +1,4 @@
-package com.ales.fittrackapi.controllers;
+package com.ales.fittrackapi.controllers.user;
 
 import com.ales.fittrackapi.entities.User;
 import org.springframework.http.HttpStatus;

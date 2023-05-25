@@ -1,31 +1,31 @@
-package com.ales.fittrackapi.controllers;
+package com.ales.fittrackapi.controllers.exercise;
 
-import com.ales.fittrackapi.entities.Routine;
+import com.ales.fittrackapi.entities.Exercise;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/routines")
-interface IRoutineController {
+@RequestMapping("/exercises")
+public interface IExerciseController {
 
     @GetMapping
-    List<Routine> findAll();
+    List<Exercise> findAll();
 
     @GetMapping("/{id}")
-    Routine findById(@PathVariable Long id);
+    Exercise findById(@PathVariable Long id);
 
     @GetMapping("/likeExample")
-    List<Routine> findAllByExample(@RequestBody Routine routine);
+    List<Exercise> findAllByExample(@RequestBody Exercise exercise);
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    Routine save(@RequestBody Routine routine);
+    Exercise save(@RequestBody Exercise exercise);
 
     @PostMapping("/saveList")
     @ResponseStatus(HttpStatus.CREATED)
-    List<Routine> saveAll(@RequestBody List<Routine> routines);
+    List<Exercise> saveAll(@RequestBody List<Exercise> exercises);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -33,8 +33,8 @@ interface IRoutineController {
 
     @DeleteMapping("/likeExample")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteByExample(@RequestBody Routine routine);
+    void deleteByExample(@RequestBody Exercise exercise);
 
     @PutMapping
-    Routine update(@RequestBody Routine routine);
+    Exercise update(@RequestBody Exercise exercise);
 }

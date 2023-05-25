@@ -1,8 +1,9 @@
-package com.ales.fittrackapi.services;
+package com.ales.fittrackapi.services.record;
 
 import com.ales.fittrackapi.entities.Record;
 import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.repositories.RecordRepository;
+import com.ales.fittrackapi.services.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;

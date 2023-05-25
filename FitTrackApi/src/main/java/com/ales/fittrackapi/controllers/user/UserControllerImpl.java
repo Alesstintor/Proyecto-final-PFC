@@ -1,7 +1,7 @@
-package com.ales.fittrackapi.controllers;
+package com.ales.fittrackapi.controllers.user;
 
 import com.ales.fittrackapi.entities.User;
-import com.ales.fittrackapi.services.IUserService;
+import com.ales.fittrackapi.services.user.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,12 +9,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/users")
-public class UserControllerImpl implements IUserController{
+public class UserControllerImpl implements IUserController {
 
     @Autowired
     IUserService userService;
 
-    @GetMapping
+    @Override
     public List<User> findAll() {
         return userService.findAll();
     }

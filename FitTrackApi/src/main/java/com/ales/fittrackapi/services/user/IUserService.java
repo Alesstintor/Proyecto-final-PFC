@@ -1,4 +1,4 @@
-package com.ales.fittrackapi.services;
+package com.ales.fittrackapi.services.user;
 
 import com.ales.fittrackapi.entities.User;
 

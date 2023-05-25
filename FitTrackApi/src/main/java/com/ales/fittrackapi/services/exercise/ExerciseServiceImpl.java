@@ -1,4 +1,4 @@
-package com.ales.fittrackapi.services;
+package com.ales.fittrackapi.services.exercise;
 
 import com.ales.fittrackapi.entities.Exercise;
 import com.ales.fittrackapi.repositories.ExerciseRepository;

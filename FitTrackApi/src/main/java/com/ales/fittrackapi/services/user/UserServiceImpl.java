@@ -1,10 +1,11 @@
-package com.ales.fittrackapi.services;
+package com.ales.fittrackapi.services.user;
 
 import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -37,6 +38,7 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public User save(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
