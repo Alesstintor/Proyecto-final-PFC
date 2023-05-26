@@ -2,64 +2,58 @@ package com.ales.fittrackapi.controllers.record;
 
 import com.ales.fittrackapi.entities.Record;
 import com.ales.fittrackapi.services.record.IRecordService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/records")
+@RequiredArgsConstructor
 public class RecordControllerImpl implements IRecordController {
 
-    @Autowired
-    IRecordService recordService;
 
-    @GetMapping
+    private final IRecordService recordService;
+
+    @Override
     public List<Record> findAll() {
         return recordService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @Override
     public Record findById(@PathVariable Long id) {
         return recordService.findById(id);
     }
 
-    @GetMapping("/likeExample")
+    @Override
     public List<Record> findAllByExample(@RequestBody Record record) {
         return recordService.findAllByExample(record);
     }
 
-    @GetMapping("/byUser/{id}")
+    @Override
     public List<Record> findAllByUser(@PathVariable Long id) {
         return recordService.findAllByUser(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public Record save(@RequestBody Record record) {
         return recordService.save(record);
     }
 
-    @PostMapping("/saveList")
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public List<Record> saveAll(@RequestBody List<Record> records) {
         return recordService.saveAll(records);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteById(@PathVariable Long id) {
         recordService.deleteById(id);
     }
 
-    @DeleteMapping("/likeExample")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteByExample(@RequestBody Record record) {
         recordService.deleteByExample(record);
     }
 
-    @PutMapping
+    @Override
     public Record update(@RequestBody Record record) {
         return recordService.update(record);
     }

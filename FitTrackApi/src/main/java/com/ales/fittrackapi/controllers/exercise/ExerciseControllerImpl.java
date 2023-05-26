@@ -2,59 +2,52 @@ package com.ales.fittrackapi.controllers.exercise;
 
 import com.ales.fittrackapi.entities.Exercise;
 import com.ales.fittrackapi.services.exercise.IExerciseService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/exercises")
+@RequiredArgsConstructor
 public class ExerciseControllerImpl implements IExerciseController {
 
-    @Autowired
-    IExerciseService exerciseService;
+    private final IExerciseService exerciseService;
 
-    @GetMapping
+    @Override
     public List<Exercise> findAll() {
         return exerciseService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @Override
     public Exercise findById(@PathVariable Long id) {
         return exerciseService.findById(id);
     }
 
-    @GetMapping("/likeExample")
+    @Override
     public List<Exercise> findAllByExample(@RequestBody Exercise exercise) {
         return exerciseService.findAllByExample(exercise);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public Exercise save(@RequestBody Exercise exercise) {
         return exerciseService.save(exercise);
     }
 
-    @PostMapping("/saveList")
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public List<Exercise> saveAll(@RequestBody List<Exercise> exercises) {
         return exerciseService.saveAll(exercises);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteById(@PathVariable Long id) {
         exerciseService.deleteById(id);
     }
 
-    @DeleteMapping("/likeExample")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteByExample(@RequestBody Exercise exercise) {
         exerciseService.deleteByExample(exercise);
     }
 
-    @PutMapping
+    @Override
     public Exercise update(@RequestBody Exercise exercise) {
         return exerciseService.update(exercise);
     }

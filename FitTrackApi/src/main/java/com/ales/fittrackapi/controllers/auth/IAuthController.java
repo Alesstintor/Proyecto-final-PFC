@@ -1,8 +1,8 @@
 package com.ales.fittrackapi.controllers.auth;
 
 import com.ales.fittrackapi.entities.auth.AuthenticationRequest;
-import com.ales.fittrackapi.entities.User;
-import jakarta.servlet.http.HttpServletResponse;
+import com.ales.fittrackapi.entities.auth.AuthenticationResponse;
+import com.ales.fittrackapi.entities.auth.RegisterRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public interface IAuthController {
 
     @PostMapping("/login")
-    ResponseEntity<String> createToken(@RequestBody AuthenticationRequest authenticationRequest, HttpServletResponse response) throws Exception;
+    ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authenticationRequest) throws Exception;
 
     @PostMapping("/register")
-    User register(@RequestBody User user);
+    ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest);
 }

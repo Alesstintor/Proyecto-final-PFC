@@ -2,59 +2,53 @@ package com.ales.fittrackapi.controllers.routine;
 
 import com.ales.fittrackapi.entities.Routine;
 import com.ales.fittrackapi.services.routine.IRoutineService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/routines")
+@RequiredArgsConstructor
 public class RoutineControllerImpl implements IRoutineController {
 
-    @Autowired
-    IRoutineService routineService;
 
-    @GetMapping
+    private final IRoutineService routineService;
+
+    @Override
     public List<Routine> findAll() {
         return routineService.findAll();
     }
 
-    @GetMapping("/{id}")
+    @Override
     public Routine findById(@PathVariable Long id) {
         return routineService.findById(id);
     }
 
-    @GetMapping("/likeExample")
+    @Override
     public List<Routine> findAllByExample(@RequestBody Routine routine) {
         return routineService.findAllByExample(routine);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public Routine save(@RequestBody Routine routine) {
         return routineService.save(routine);
     }
 
-    @PostMapping("/saveList")
-    @ResponseStatus(HttpStatus.CREATED)
+    @Override
     public List<Routine> saveAll(@RequestBody List<Routine> routines) {
         return routineService.saveAll(routines);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteById(@PathVariable Long id) {
         routineService.deleteById(id);
     }
 
-    @DeleteMapping("/likeExample")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @Override
     public void deleteByExample(@RequestBody Routine routine) {
         routineService.deleteByExample(routine);
     }
 
-    @PutMapping
+    @Override
     public Routine update(@RequestBody Routine routine) {
         System.out.println(routine);
         return routineService.update(routine);

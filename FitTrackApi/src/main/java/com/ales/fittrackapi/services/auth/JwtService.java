@@ -13,13 +13,14 @@ import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;
 import java.util.Collection;
 import java.util.Date;
+import java.util.function.Function;
 
 @Service
 public class JwtService {
     private static final int EXPIRATION_TIME = 1000 * 60 * 60;
     private static final String AUTHORITIES = "authorities";
     private final SecretKey SECRET_KEY;
-    @Value("${SECURITY.SECRET.KEY}")
+    @Value("${SECURITY.SECRET_KEY}")
     private String KEY;
 
     public JwtService() {
@@ -33,19 +34,14 @@ public class JwtService {
         return Jwts.builder()
                 .setSubject(username)
                 .claim(AUTHORITIES, authorities)
+                .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
                 .signWith(SECRET_KEY, SignatureAlgorithm.HS512)
                 .compact();
     }
 
     public Boolean hasTokenExpired(String token) {
-        return Jwts.parserBuilder()
-                .setSigningKey(SECRET_KEY)
-                .build()
-                .parseClaimsJws(token)
-                .getBody()
-                .getExpiration()
-                .before(new Date());
+        return extractExpiration(token).before(new Date());
     }
 
     public Boolean validateToken(String token, UserDetails userDetails) {
@@ -54,17 +50,28 @@ public class JwtService {
 
     }
 
+    private Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
     public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public Collection<? extends GrantedAuthority> getAuthorities(String token) {
+        return (Collection<? extends GrantedAuthority>) extractAllClaims(token).get(AUTHORITIES);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
                 .parseClaimsJws(token)
-                .getBody()
-                .getSubject();
-    }
-
-    public Collection<? extends GrantedAuthority> getAuthorities(String token) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(SECRET_KEY).build().parseClaimsJws(token).getBody();
-        return (Collection<? extends GrantedAuthority>) claims.get(AUTHORITIES);
+                .getBody();
     }
 }

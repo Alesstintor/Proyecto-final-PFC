@@ -2,20 +2,17 @@ package com.ales.fittrackapi.services.routine;
 
 import com.ales.fittrackapi.entities.Routine;
 import com.ales.fittrackapi.repositories.RoutineRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class RoutineServiceImpl implements IRoutineService{
 
-    @Autowired
-    RoutineRepository routineRepository;
-
+    private final RoutineRepository routineRepository;
 
     @Override
     public List<Routine> findAll() {

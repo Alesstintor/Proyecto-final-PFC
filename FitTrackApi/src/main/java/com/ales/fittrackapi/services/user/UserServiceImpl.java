@@ -2,23 +2,20 @@ package com.ales.fittrackapi.services.user;
 
 import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements IUserService{
 
-    @Autowired
-    UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> findAll() {

@@ -2,17 +2,16 @@ package com.ales.fittrackapi.controllers.user;
 
 import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.services.user.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/users")
+@RequiredArgsConstructor
 public class UserControllerImpl implements IUserController {
 
-    @Autowired
-    IUserService userService;
+
+    private final IUserService userService;
 
     @Override
     public List<User> findAll() {

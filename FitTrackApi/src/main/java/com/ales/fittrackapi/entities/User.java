@@ -2,14 +2,16 @@ package com.ales.fittrackapi.entities;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@Entity
+@Builder
 @AllArgsConstructor @NoArgsConstructor
+@Entity
 public class User {
 
     @Id

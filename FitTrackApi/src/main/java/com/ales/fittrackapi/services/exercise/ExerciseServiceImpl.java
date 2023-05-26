@@ -2,19 +2,17 @@ package com.ales.fittrackapi.services.exercise;
 
 import com.ales.fittrackapi.entities.Exercise;
 import com.ales.fittrackapi.repositories.ExerciseRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class ExerciseServiceImpl implements IExerciseService{
 
-    @Autowired
-    ExerciseRepository exerciseRepository;
+    private final ExerciseRepository exerciseRepository;
 
     @Override
     public List<Exercise> findAll() {

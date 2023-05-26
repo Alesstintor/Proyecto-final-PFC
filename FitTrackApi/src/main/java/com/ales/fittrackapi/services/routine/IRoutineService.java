@@ -1,9 +1,11 @@
 package com.ales.fittrackapi.services.routine;
 
 import com.ales.fittrackapi.entities.Routine;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IRoutineService {
 
     List<Routine> findAll();

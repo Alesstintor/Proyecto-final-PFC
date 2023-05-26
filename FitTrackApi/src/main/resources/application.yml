@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fittrackapi?useSSL=false&serverTimezone=Europe/Madrid&allowPublicKeyRetrieval=true
+    username: Ales
+    password: 1234
+
+  jpa:
+    generate-ddl: true
+    show-sql: true
+
+    hibernate:
+      #ddl-auto: create
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+
+    naming:
+      physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+SECURITY:
+  SECRET_KEY: oG4mgbYBQg20l01wRHcB285CunSwnk33Oi5YQUzjYssWSsTAu8
+

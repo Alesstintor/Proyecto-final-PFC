@@ -1,9 +1,11 @@
 package com.ales.fittrackapi.services.user;
 
 import com.ales.fittrackapi.entities.User;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IUserService {
 
     List<User> findAll();

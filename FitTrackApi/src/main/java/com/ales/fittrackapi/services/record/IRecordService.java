@@ -1,9 +1,11 @@
 package com.ales.fittrackapi.services.record;
 
 import com.ales.fittrackapi.entities.Record;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IRecordService {
 
     List<Record> findAll();

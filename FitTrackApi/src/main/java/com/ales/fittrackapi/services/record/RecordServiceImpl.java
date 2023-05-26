@@ -4,22 +4,18 @@ import com.ales.fittrackapi.entities.Record;
 import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.repositories.RecordRepository;
 import com.ales.fittrackapi.services.user.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
 import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-@Service
+@RequiredArgsConstructor
 public class RecordServiceImpl implements IRecordService{
 
-    @Autowired
-    RecordRepository recordRepository;
-
-    @Autowired
-    IUserService userService;
+    private final RecordRepository recordRepository;
+    private final IUserService userService;
 
     @Override
     public List<Record> findAll() {
