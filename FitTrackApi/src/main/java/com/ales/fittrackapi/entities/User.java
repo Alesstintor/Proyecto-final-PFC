@@ -32,4 +32,7 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Routine> routine;
+
+    @OneToMany
+    private List<Record> records;
 }

@@ -4,6 +4,7 @@ import com.ales.fittrackapi.entities.User;
 import com.ales.fittrackapi.services.user.IUserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class UserControllerImpl implements IUserController {
     private final IUserService userService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<User> findAll() {
         return userService.findAll();
     }

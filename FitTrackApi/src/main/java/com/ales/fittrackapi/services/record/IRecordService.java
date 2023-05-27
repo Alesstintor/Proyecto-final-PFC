@@ -9,8 +9,7 @@ public interface IRecordService {
     List<Record> findAll();
     Record findById(Long id);
     List<Record> findAllByExample(Record record);
-    List<Record> findAllByUser(Long id);
-    Record save(Record record);
+    Record save(Record record, Long id);
     List<Record> saveAll(List<Record> records);
     void deleteById(Long id);
     void deleteByExample(Record record);

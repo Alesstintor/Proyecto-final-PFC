@@ -35,14 +35,14 @@ public class RecordServiceImpl implements IRecordService{
     }
 
     @Override
-    public List<Record> findAllByUser(Long id) {
-        User user = userService.findById(id);
-        return recordRepository.findAllByUser(user);
-    }
-
-    @Override
-    public Record save(Record record) {
-        return recordRepository.save(record);
+    public Record save(Record record, Long id) {
+        Record savedRecord = recordRepository.save(record);
+        User user  = userService.findById(id);
+        List<Record> userRecordList = user.getRecords();
+        userRecordList.add(savedRecord);
+        user.setRecords(userRecordList);
+        userService.update(user);
+        return savedRecord;
     }
 
     @Override

@@ -4,6 +4,7 @@ import com.ales.fittrackapi.entities.Routine;
 import com.ales.fittrackapi.services.routine.IRoutineService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,12 +46,14 @@ public class RoutineControllerImpl implements IRoutineController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteById(@PathVariable Long id) {
         routineService.deleteById(id);
     }
 
     @DeleteMapping("/likeExample")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteByExample(@RequestBody Routine routine) {
         routineService.deleteByExample(routine);
     }

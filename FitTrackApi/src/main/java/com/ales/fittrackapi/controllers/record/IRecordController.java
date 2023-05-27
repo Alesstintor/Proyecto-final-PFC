@@ -16,11 +16,7 @@ public interface IRecordController {
 
     List<Record> findAllByExample(@RequestBody Record record);
 
-
-    List<Record> findAllByUser(@PathVariable Long id);
-
-
-    Record save(@RequestBody Record record);
+    Record save(@RequestBody Record record, Long id);
 
 
     List<Record> saveAll(@RequestBody List<Record> records);

@@ -21,8 +21,6 @@ public class Record {
     @CreationTimestamp
     private Date date;
     @ManyToOne
-    private User user;
-    @ManyToOne
     private Routine routine;
     @ManyToMany
     private List<Exercise> exerciseList;

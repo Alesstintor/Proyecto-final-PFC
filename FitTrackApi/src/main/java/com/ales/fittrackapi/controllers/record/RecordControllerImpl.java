@@ -31,15 +31,10 @@ public class RecordControllerImpl implements IRecordController {
         return recordService.findAllByExample(record);
     }
 
-    @GetMapping("/byUser/{id}")
-    public List<Record> findAllByUser(@PathVariable Long id) {
-        return recordService.findAllByUser(id);
-    }
-
-    @PostMapping
+    @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public Record save(@RequestBody Record record) {
-        return recordService.save(record);
+    public Record save(@RequestBody Record record, @PathVariable Long id) {
+        return recordService.save(record, id);
     }
 
     @PostMapping("/saveList")
