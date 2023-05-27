@@ -3,51 +3,58 @@ package com.ales.fittrackapi.controllers.exercise;
 import com.ales.fittrackapi.entities.Exercise;
 import com.ales.fittrackapi.services.exercise.IExerciseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/exercises")
 @RequiredArgsConstructor
 public class ExerciseControllerImpl implements IExerciseController {
 
     private final IExerciseService exerciseService;
 
-    @Override
+    @GetMapping
     public List<Exercise> findAll() {
         return exerciseService.findAll();
     }
 
-    @Override
+    @GetMapping("{id}")
     public Exercise findById(@PathVariable Long id) {
         return exerciseService.findById(id);
     }
 
-    @Override
+    @GetMapping("/likeExample")
     public List<Exercise> findAllByExample(@RequestBody Exercise exercise) {
         return exerciseService.findAllByExample(exercise);
     }
 
-    @Override
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Exercise save(@RequestBody Exercise exercise) {
         return exerciseService.save(exercise);
     }
 
-    @Override
+    @PostMapping("/saveList")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<Exercise> saveAll(@RequestBody List<Exercise> exercises) {
         return exerciseService.saveAll(exercises);
     }
 
-    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         exerciseService.deleteById(id);
     }
 
-    @Override
+    @DeleteMapping("/likeExample")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByExample(@RequestBody Exercise exercise) {
         exerciseService.deleteByExample(exercise);
     }
 
-    @Override
+    @PutMapping
     public Exercise update(@RequestBody Exercise exercise) {
         return exerciseService.update(exercise);
     }

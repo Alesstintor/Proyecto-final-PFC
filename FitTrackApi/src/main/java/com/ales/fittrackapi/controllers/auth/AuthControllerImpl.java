@@ -5,28 +5,28 @@ import com.ales.fittrackapi.entities.auth.RegisterRequest;
 import com.ales.fittrackapi.services.auth.IAuthService;
 import com.ales.fittrackapi.entities.auth.AuthenticationRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 public class AuthControllerImpl implements IAuthController{
 
     private final IAuthService authService;
 
-    @Autowired
-
     // /auth/login
-    @Override
-    public ResponseEntity<AuthenticationResponse> login(AuthenticationRequest authenticationRequest) {
-
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest authenticationRequest) {
         return ResponseEntity.ok(authService.authenticate(authenticationRequest));
-
-
     }
 
     // auth/register
-    @Override
-    public ResponseEntity<AuthenticationResponse> register(RegisterRequest registerRequest) {
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest));
     }
 }

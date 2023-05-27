@@ -3,57 +3,64 @@ package com.ales.fittrackapi.controllers.record;
 import com.ales.fittrackapi.entities.Record;
 import com.ales.fittrackapi.services.record.IRecordService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RestController
+@RequestMapping("/records")
 @RequiredArgsConstructor
 public class RecordControllerImpl implements IRecordController {
 
 
     private final IRecordService recordService;
 
-    @Override
+    @GetMapping
     public List<Record> findAll() {
         return recordService.findAll();
     }
 
-    @Override
+    @GetMapping("/{id}")
     public Record findById(@PathVariable Long id) {
         return recordService.findById(id);
     }
 
-    @Override
+    @GetMapping("/likeExample")
     public List<Record> findAllByExample(@RequestBody Record record) {
         return recordService.findAllByExample(record);
     }
 
-    @Override
+    @GetMapping("/byUser/{id}")
     public List<Record> findAllByUser(@PathVariable Long id) {
         return recordService.findAllByUser(id);
     }
 
-    @Override
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Record save(@RequestBody Record record) {
         return recordService.save(record);
     }
 
-    @Override
+    @PostMapping("/saveList")
+    @ResponseStatus(HttpStatus.CREATED)
     public List<Record> saveAll(@RequestBody List<Record> records) {
         return recordService.saveAll(records);
     }
 
-    @Override
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) {
         recordService.deleteById(id);
     }
 
-    @Override
+    @DeleteMapping("/likeExample")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteByExample(@RequestBody Record record) {
         recordService.deleteByExample(record);
     }
 
-    @Override
+    @PutMapping
     public Record update(@RequestBody Record record) {
         return recordService.update(record);
     }

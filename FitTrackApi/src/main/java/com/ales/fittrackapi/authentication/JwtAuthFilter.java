@@ -1,6 +1,6 @@
 package com.ales.fittrackapi.authentication;
 
-import com.ales.fittrackapi.services.auth.JwtService;
+import com.ales.fittrackapi.services.auth.IJwtService;
 import com.ales.fittrackapi.services.auth.MyUserDetailsService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -22,7 +22,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    private final JwtService jwtService;
+    private final IJwtService jwtService;
     private final MyUserDetailsService myUserDetailsService;
 
     @Override

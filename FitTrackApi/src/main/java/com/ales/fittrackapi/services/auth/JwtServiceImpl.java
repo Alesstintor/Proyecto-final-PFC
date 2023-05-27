@@ -16,14 +16,14 @@ import java.util.Date;
 import java.util.function.Function;
 
 @Service
-public class JwtService {
+public class JwtServiceImpl implements IJwtService{
     private static final int EXPIRATION_TIME = 1000 * 60 * 60;
     private static final String AUTHORITIES = "authorities";
     private final SecretKey SECRET_KEY;
     @Value("${SECURITY.SECRET_KEY}")
     private String KEY;
 
-    public JwtService() {
+    public JwtServiceImpl() {
         if (KEY == null) KEY = "oG4mgbYBQg20l01wRHcB285CunSwnk33Oi5YQUzjYssWSsTAu8";
         SECRET_KEY = Keys.hmacShaKeyFor(Decoders.BASE64.decode(KEY));
     }
@@ -36,7 +36,7 @@ public class JwtService {
                 .claim(AUTHORITIES, authorities)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
-                .signWith(SECRET_KEY, SignatureAlgorithm.HS512)
+                .signWith(SECRET_KEY, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -50,7 +50,7 @@ public class JwtService {
 
     }
 
-    private Date extractExpiration(String token) {
+    public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
     }
 
@@ -67,7 +67,7 @@ public class JwtService {
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(SECRET_KEY)
                 .build()
