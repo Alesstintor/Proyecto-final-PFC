@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserControllerImpl implements IUserController {
 
-
     private final IUserService userService;
 
     @GetMapping
@@ -24,40 +23,49 @@ public class UserControllerImpl implements IUserController {
     }
 
     @GetMapping("/{id}")
-    public User findById(Long id) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public User findById(@PathVariable Long id) {
         return userService.findById(id);
     }
 
-    @GetMapping("/likeExample")
-    public List<User> findAllByExample(User user) {
+    @GetMapping("/myData")
+    public User findAuthenticatedUser() {return userService.findAuthenticatedUser();}
+    @PostMapping("/likeExample")
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public List<User> findAllByExample(@RequestBody User user) {
         return userService.findAllByExample(user);
     }
 
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public User save(User user) {
         return userService.save(user);
     }
 
     @PostMapping("/saveList")
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<User> saveAll(@RequestBody List<User> users) {
         return userService.saveAll(users);
     }
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(Long id) {
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public void deleteById(@PathVariable Long id) {
         userService.deleteById(id);
     }
 
     @DeleteMapping("/likeExample")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAuthority('ADMIN')")
     public void deleteByExample(@RequestBody User user) {
         userService.deleteByExample(user);
     }
 
     @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public User update(@RequestBody User user) {
         return userService.update(user);
     }

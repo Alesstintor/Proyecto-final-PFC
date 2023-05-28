@@ -1,7 +1,6 @@
 package com.ales.fittrackapi.controllers.user;
 
 import com.ales.fittrackapi.entities.User;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -9,17 +8,19 @@ interface IUserController {
 
     List<User> findAll();
 
-    User findById(@PathVariable Long id);
+    User findById( Long id);
 
-    List<User> findAllByExample(@RequestBody User user);
+    User findAuthenticatedUser();
 
-    User save(@RequestBody User user);
+    List<User> findAllByExample( User user);
 
-    List<User> saveAll(@RequestBody List<User> users);
+    User save( User user);
 
-    void deleteById(@PathVariable Long id);
+    List<User> saveAll( List<User> users);
 
-    void deleteByExample(@RequestBody User user);
+    void deleteById( Long id);
 
-    User update(@RequestBody User user);
+    void deleteByExample( User user);
+
+    User update( User user);
 }
