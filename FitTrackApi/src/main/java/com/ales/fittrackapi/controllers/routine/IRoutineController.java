@@ -1,7 +1,6 @@
 package com.ales.fittrackapi.controllers.routine;
 
 import com.ales.fittrackapi.entities.Routine;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -9,17 +8,17 @@ interface IRoutineController {
 
     List<Routine> findAll();
 
-    Routine findById(@PathVariable Long id);
+    Routine findById(Long id);
 
-    List<Routine> findAllByExample(@RequestBody Routine routine);
+    List<Routine> findAllByExample(Routine routine);
 
-    Routine save(@RequestBody Routine routine);
+    Routine save(Routine routine);
 
-    List<Routine> saveAll(@RequestBody List<Routine> routines);
+    List<Routine> saveAll(List<Routine> routines);
 
-    void deleteById(@PathVariable Long id);
+    void deleteById(Long id);
 
-    void deleteByExample(@RequestBody Routine routine);
+    void deleteByExample(Routine routine);
 
-    Routine update(@RequestBody Routine routine);
+    Routine update(Routine routine);
 }

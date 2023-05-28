@@ -69,4 +69,15 @@ public class RecordServiceImpl implements IRecordService{
         findById(record.getId());
         return recordRepository.save(record);
     }
+
+    @Override
+    public Record saveForAuthenticatedUser(Record record) {
+        Record savedRecord = recordRepository.save(record);
+        User user  = userService.findAuthenticatedUser();
+        List<Record> userRecordList = user.getRecords();
+        userRecordList.add(savedRecord);
+        user.setRecords(userRecordList);
+        userService.update(user);
+        return savedRecord;
+    }
 }

@@ -23,4 +23,6 @@ interface IUserController {
     void deleteByExample( User user);
 
     User update( User user);
+
+    User updateAuthenticatedUser(User user);
 }

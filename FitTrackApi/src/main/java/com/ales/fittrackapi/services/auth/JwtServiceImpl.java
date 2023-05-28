@@ -17,6 +17,7 @@ import java.util.function.Function;
 
 @Service
 public class JwtServiceImpl implements IJwtService{
+
     private static final int EXPIRATION_TIME = 1000 * 60 * 60;
     private static final String AUTHORITIES = "authorities";
     private final SecretKey SECRET_KEY;

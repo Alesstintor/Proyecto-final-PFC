@@ -8,4 +8,6 @@ public interface IAuthService {
     AuthenticationResponse register(RegisterRequest registerRequest);
 
     AuthenticationResponse authenticate(AuthenticationRequest authenticationRequest);
+
+    AuthenticationResponse revalidateToken();
 }

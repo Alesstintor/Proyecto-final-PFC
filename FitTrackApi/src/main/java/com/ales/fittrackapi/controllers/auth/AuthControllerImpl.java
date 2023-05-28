@@ -6,10 +6,8 @@ import com.ales.fittrackapi.services.auth.IAuthService;
 import com.ales.fittrackapi.entities.auth.AuthenticationRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,5 +26,11 @@ public class AuthControllerImpl implements IAuthController{
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest registerRequest) {
         return ResponseEntity.ok(authService.register(registerRequest));
+    }
+
+    @GetMapping("/revalidate")
+    @PreAuthorize("isAuthenticated()")
+    public ResponseEntity<AuthenticationResponse> revalidateToken() {
+        return ResponseEntity.ok(authService.revalidateToken());
     }
 }

@@ -10,4 +10,6 @@ public interface IAuthController {
     ResponseEntity<AuthenticationResponse> login(AuthenticationRequest authenticationRequest) throws Exception;
 
     ResponseEntity<AuthenticationResponse> register(RegisterRequest registerRequest);
+
+    ResponseEntity<AuthenticationResponse> revalidateToken();
 }

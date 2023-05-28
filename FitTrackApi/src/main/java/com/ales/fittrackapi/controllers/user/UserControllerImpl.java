@@ -28,8 +28,9 @@ public class UserControllerImpl implements IUserController {
         return userService.findById(id);
     }
 
-    @GetMapping("/myData")
+    @GetMapping("/myUser")
     public User findAuthenticatedUser() {return userService.findAuthenticatedUser();}
+
     @PostMapping("/likeExample")
     @PreAuthorize("hasAuthority('ADMIN')")
     public List<User> findAllByExample(@RequestBody User user) {
@@ -68,6 +69,11 @@ public class UserControllerImpl implements IUserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public User update(@RequestBody User user) {
         return userService.update(user);
+    }
+
+    @PatchMapping("/myUser")
+    public User updateAuthenticatedUser(@RequestBody User user) {
+        return userService.updateAuthenticatedUser(user);
     }
 
 }

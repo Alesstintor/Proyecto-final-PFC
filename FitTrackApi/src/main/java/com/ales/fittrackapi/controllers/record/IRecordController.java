@@ -1,7 +1,6 @@
 package com.ales.fittrackapi.controllers.record;
 
 import com.ales.fittrackapi.entities.Record;
-import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -9,17 +8,19 @@ public interface IRecordController {
 
     List<Record> findAll();
 
-    Record findById(@PathVariable Long id);
+    Record findById(Long id);
 
-    List<Record> findAllByExample(@RequestBody Record record);
+    List<Record> findAllByExample(Record record);
 
-    Record save(@RequestBody Record record, Long id);
+    Record save(Record record, Long id);
 
-    List<Record> saveAll(@RequestBody List<Record> records);
+    Record saveForAuthenticatedUser(Record record);
 
-    void deleteById(@PathVariable Long id);
+    List<Record> saveAll(List<Record> records);
 
-    void deleteByExample(@RequestBody Record record);
+    void deleteById(Long id);
 
-    Record update(@RequestBody Record record);
+    void deleteByExample(Record record);
+
+    Record update(Record record);
 }

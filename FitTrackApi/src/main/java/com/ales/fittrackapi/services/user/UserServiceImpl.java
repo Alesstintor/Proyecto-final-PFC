@@ -75,4 +75,18 @@ public class UserServiceImpl implements IUserService{
         findById(user.getId());
         return userRepository.save(user);
     }
+
+    @Override
+    public User updateAuthenticatedUser(User user) {
+        User savedUser = findAuthenticatedUser();
+
+        if (user.getName() != null) savedUser.setName(user.getName());
+        if (user.getSurname() != null) savedUser.setSurname(user.getSurname());
+        if (user.getAge() > 0) savedUser.setAge(user.getAge());
+        if (user.getWeight() > 0) savedUser.setWeight(user.getWeight());
+        if (user.getHeight() > 0) savedUser.setHeight(user.getHeight());
+        if (user.getGenre() != null) savedUser.setGenre(user.getGenre());
+
+        return userRepository.save(savedUser);
+    }
 }

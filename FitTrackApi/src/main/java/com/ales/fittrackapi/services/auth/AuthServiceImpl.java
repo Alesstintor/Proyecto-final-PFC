@@ -8,8 +8,10 @@ import com.ales.fittrackapi.entities.auth.MyUserDetails;
 import com.ales.fittrackapi.entities.auth.RegisterRequest;
 import com.ales.fittrackapi.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class AuthServiceImpl implements IAuthService{
 
     private final UserRepository userRepository;
@@ -37,6 +40,7 @@ public class AuthServiceImpl implements IAuthService{
                 .build();
 
         User savedUser = userRepository.save(user);
+        log.info("User registered: {}", savedUser);
         String token = jwtService.createToken(new MyUserDetails(savedUser));
         return AuthenticationResponse.builder().token(token).build();
     }
@@ -50,6 +54,17 @@ public class AuthServiceImpl implements IAuthService{
         authenticationManager.authenticate(authentication);
 
         UserDetails userDetails = myUserDetailsService.loadUserByUsername(authenticationRequest.getUsername());
+
+        String token = jwtService.createToken(userDetails);
+
+        return AuthenticationResponse.builder().token(token).build();
+    }
+
+    @Override
+    public AuthenticationResponse revalidateToken() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
 
         String token = jwtService.createToken(userDetails);
 
