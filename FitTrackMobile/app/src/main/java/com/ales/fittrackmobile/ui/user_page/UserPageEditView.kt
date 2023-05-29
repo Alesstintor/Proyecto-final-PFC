@@ -86,6 +86,7 @@ class UserPageEditView : AppCompatActivity() {
     }
 
     private fun setLoading(loading: Boolean) {
+        binding.doneEditButton.isEnabled = !loading
         binding.nameValueEdit.isEnabled = !loading
         binding.weightValueEdit.isEnabled = !loading
         binding.heightValueEdit.isEnabled = !loading
