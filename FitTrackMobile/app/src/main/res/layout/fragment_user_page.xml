@@ -25,12 +25,12 @@
             android:src="@drawable/ic_person_black_24d" />
 
         <TextView
-            android:id="@+id/username"
+            android:id="@+id/name_value"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:textSize="30sp"
-            android:text="Username"
+            android:text="@string/name_view_text"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/user_icon"/>
@@ -107,32 +107,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:textAlignment="inherit"
-                android:text="Height"/>
+                android:textAlignment="inherit"/>
 
             <TextView
                 android:id="@+id/weight_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:textAlignment="inherit"
-                android:text="Weight"/>
+                android:textAlignment="inherit"/>
 
             <TextView
                 android:id="@+id/age_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:textAlignment="inherit"
-                android:text="Age"/>
+                android:textAlignment="inherit"/>
 
             <TextView
                 android:id="@+id/genre_value"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:textAlignment="inherit"
-                android:text="Genre"/>
+                android:textAlignment="inherit"/>
 
 
         </LinearLayout>

@@ -5,9 +5,9 @@ import java.util.List;
 public class User {
     private Long id;
     private List<String> type;
-    private String name;
+    private String name = "Guest";
     private String surname;
-    private String username = "Guest";
+    private String username;
     private int age = 0;
     private double weight = 0.0;
     private int height = 0;

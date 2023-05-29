@@ -12,14 +12,14 @@ import retrofit2.http.POST
 
 interface ApiAccess {
 
-    @PATCH("/users/myUser")
-    fun updateUser(@Body user: User): Call<User>
-
     @POST("/auth/login")
     fun userLogin(@Body authRequest: AuthenticationRequest): Call<AuthenticationResponse>
 
     @POST("/auth/register")
     fun userRegister(@Body registerRequest: RegisterRequest): Call<AuthenticationResponse>
+
+    @PATCH("/users/myUser")
+    fun updateUser(@Body user: User): Call<User>
 
     @GET("/users/myUser")
     fun fetchUserData(): Call<User>

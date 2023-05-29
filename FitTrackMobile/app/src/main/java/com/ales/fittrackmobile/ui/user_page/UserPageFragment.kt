@@ -47,7 +47,7 @@ class UserPageFragment : Fragment() {
     }
 
     private fun loadUser() {
-        binding.username.text = userContext.user.username
+        binding.nameValue.text = userContext.user.name
         binding.heightValue.text = userContext.user.height.toString()
         binding.weightValue.text = userContext.user.weight.toString()
         binding.ageValue.text = userContext.user.age.toString()
@@ -64,9 +64,8 @@ class UserPageFragment : Fragment() {
         recyclerView.adapter = RecordCustomAdapter(userContext.recordList.orEmpty().toTypedArray())
     }
 
-    fun onEditProfileButtonClick() {
-        val intent = Intent(this.context, UserPageEditView::class.java)
-        startActivity(intent)
+    private fun onEditProfileButtonClick() {
+        startActivity(Intent(this.context, UserPageEditView::class.java))
     }
 
     override fun onDestroyView() {

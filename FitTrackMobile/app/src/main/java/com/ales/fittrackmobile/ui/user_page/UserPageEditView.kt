@@ -3,15 +3,26 @@ package com.ales.fittrackmobile.ui.user_page
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
+import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.HomeActivity
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
+import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class UserPageEditView : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserPageEditViewBinding
 
     private lateinit var userContext: UserContext
+
+    private lateinit var newName: EditText
+    private lateinit var newWeight: EditText
+    private lateinit var newHeight: EditText
+    private lateinit var newAge: EditText
+    private lateinit var newGenre: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,24 +37,62 @@ class UserPageEditView : AppCompatActivity() {
     }
 
     private fun onDoneButtonClick() {
-        userContext.user.username = binding.usernameValueEdit.text.toString()
-        userContext.user.weight = binding.weightValueEdit.text.toString().toDouble()
-        userContext.user.height = binding.heightValueEdit.text.toString().toInt()
-        userContext.user.age = binding.ageValueEdit.text.toString().toInt()
-        userContext.user.genre = binding.genreValueEdit.text.toString()
+        if (!checkValues()) return
+        setLoading(true)
+        val newUser = userContext.user
+        if (newName.text.isNotEmpty()) newUser.name = newName.text.toString()
+        if (newWeight.text.isNotEmpty()) newUser.weight = newWeight.text.toString().toDouble()
+        if (newHeight.text.isNotEmpty()) newUser.height = newHeight.text.toString().toInt()
+        if (newAge.text.isNotEmpty()) newUser.age = newAge.text.toString().toInt()
+        if (newGenre.text.isNotEmpty()) newUser.genre = newGenre.text.toString()
 
-        userContext.persistUserData(this@UserPageEditView)
+        lifecycleScope.launch {
+            try {
+                userContext.updateUser(newUser)
+                startActivity(Intent(this@UserPageEditView, HomeActivity::class.java))
+            } catch (e: Exception) {
+                Toast.makeText(
+                    this@UserPageEditView, "Error Updating", Toast.LENGTH_LONG).show()
+            }
+        }
+        setLoading(false)
+    }
 
-        val intent = Intent(this@UserPageEditView, HomeActivity::class.java)
-        startActivity(intent)
+    private fun checkValues(): Boolean {
+        try {
+            newWeight.text.toString().toDouble()
+            newHeight.text.toString().toInt()
+            newAge.text.toString().toInt()
+        } catch (e: NumberFormatException) {
+            Toast.makeText(
+                this@UserPageEditView, "Incorrect Values", Toast.LENGTH_LONG).show()
+            return false
+        }
+        return true
     }
 
     private fun loadUser() {
-        binding.usernameValueEdit.setText(userContext.user.username)
-        binding.heightValueEdit.setText(userContext.user.height.toString())
-        binding.weightValueEdit.setText(userContext.user.weight.toString())
-        binding.genreValueEdit.setText(userContext.user.genre)
-        binding.ageValueEdit.setText(userContext.user.age.toString())
+        newName = binding.nameValueEdit
+        newHeight = binding.heightValueEdit
+        newWeight = binding.weightValueEdit
+        newGenre = binding.genreValueEdit
+        newAge = binding.ageValueEdit
+
+        newName.setText(userContext.user.name)
+        newHeight.setText(userContext.user.height.toString())
+        newWeight.setText(userContext.user.weight.toString())
+        newGenre.setText(userContext.user.genre)
+        newAge.setText(userContext.user.age.toString())
+    }
+
+    private fun setLoading(loading: Boolean) {
+        binding.nameValueEdit.isEnabled = !loading
+        binding.weightValueEdit.isEnabled = !loading
+        binding.heightValueEdit.isEnabled = !loading
+        binding.ageValueEdit.isEnabled = !loading
+        binding.genreValueEdit.isEnabled = !loading
+        if (loading) binding.progressIndicator.show()
+        else binding.progressIndicator.hide()
     }
 
 }

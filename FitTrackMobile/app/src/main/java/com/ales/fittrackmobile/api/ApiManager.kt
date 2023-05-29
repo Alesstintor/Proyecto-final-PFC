@@ -1,8 +1,6 @@
 package com.ales.fittrackmobile.api
 
-import android.content.Context
 import android.util.Log
-import android.widget.Toast
 import com.ales.fittrackmobile.entities.User
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
 import com.ales.fittrackmobile.entities.auth.AuthenticationResponse
@@ -34,28 +32,6 @@ class ApiManager {
 
     private val apiAccess: ApiAccess = retrofit.create(ApiAccess::class.java)
 
-    fun updateUser(context: Context, user: User) {
-        apiAccess.updateUser(user).enqueue(object: Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                try {
-
-                    if (!response.isSuccessful) return
-
-                    response.body() ?: User()
-
-                    Toast.makeText(context, "User Updated", Toast.LENGTH_SHORT).show()
-
-
-                } catch (e: Exception) {
-                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(context, "Connection Error", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 
     suspend fun userLogin(authenticationRequest: AuthenticationRequest): Result<AuthenticationResponse?> {
         return withContext(Dispatchers.IO) {
@@ -109,9 +85,49 @@ class ApiManager {
                 }
             } catch (e: Exception) {
                 Log.e("FETCH", "Error on Fetch")
-                Log.e("FETCH", e.message.toString() + e.stackTraceToString())
                 Result.failure(e)
             }
         }
     }
+
+    suspend fun updateUser(user: User): Result<User?>{
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.updateUser(user).execute()
+                if (response.isSuccessful) {
+                    Log.i("PATCH", "Patch Successful")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("PATCH", "Patch Unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("PATCH", "Error on Patch")
+                Result.failure(e)
+            }
+        }
+    }
+//    fun updateUser(user: User) {
+//        apiAccess.updateUser(user).enqueue(object: Callback<User> {
+//            override fun onResponse(call: Call<User>, response: Response<User>) {
+//                try {
+//
+//                    if (!response.isSuccessful) return
+//
+//                    response.body() ?: User()
+//
+//                    Toast.makeText(context, "User Updated", Toast.LENGTH_SHORT).show()
+//
+//
+//                } catch (e: Exception) {
+//                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<User>, t: Throwable) {
+//                Toast.makeText(context, "Connection Error", Toast.LENGTH_SHORT).show()
+//            }
+//        })
+//    }
 }

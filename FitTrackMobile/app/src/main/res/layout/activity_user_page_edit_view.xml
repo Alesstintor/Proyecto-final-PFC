@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".ui.user_page.UserPageEditView">
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progress_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        style="@style/Widget.MaterialComponents.CircularProgressIndicator"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/user_bar_layout"
         android:layout_width="match_parent"
@@ -25,15 +38,18 @@
             android:src="@drawable/ic_person_black_24d" />
 
         <EditText
-            android:id="@+id/username_value_edit"
+            android:id="@+id/name_value_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="50dp"
             android:textSize="30sp"
-            android:hint="Username"
+            android:hint="@string/name_hint_text"
+            android:inputType="text"
+            android:importantForAutofill="no"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/user_icon"/>
+            app:layout_constraintStart_toEndOf="@id/user_icon"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -65,7 +81,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/height_value_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,7 +97,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/weight_value_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="numberDecimal"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -95,7 +113,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/age_value_edit"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="match_parent"
+                    android:inputType="number"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
