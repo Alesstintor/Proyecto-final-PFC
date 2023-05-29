@@ -86,6 +86,7 @@ public class UserServiceImpl implements IUserService{
         if (user.getWeight() > 0) savedUser.setWeight(user.getWeight());
         if (user.getHeight() > 0) savedUser.setHeight(user.getHeight());
         if (user.getGenre() != null) savedUser.setGenre(user.getGenre());
+        if (user.getRoutine() != null) savedUser.setRoutine(user.getRoutine());
 
         return userRepository.save(savedUser);
     }
