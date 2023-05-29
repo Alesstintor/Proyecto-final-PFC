@@ -10,6 +10,7 @@ import com.ales.fittrackmobile.databinding.ActivityRegisterBinding
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
 import kotlinx.coroutines.launch
 import java.lang.Exception
+import java.lang.StringBuilder
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -33,6 +34,8 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun onRegisterButtonClick() {
 
+        if(!areFieldsOk()) return
+
         setLoading(true)
 
         val name = binding.nameInput.text.toString()
@@ -51,6 +54,7 @@ class RegisterActivity : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 userContext.register(registerRequest)
+                userContext.fetchUserData()
                 startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(this@RegisterActivity,
@@ -58,8 +62,6 @@ class RegisterActivity : AppCompatActivity() {
             }
             setLoading(false)
         }
-
-        //userContext.fetchUserData(this@LoginActivity)
     }
 
     private fun setLoading(loading: Boolean) {
@@ -70,5 +72,42 @@ class RegisterActivity : AppCompatActivity() {
         binding.passwordInput.isEnabled = !loading
         if (loading) binding.progressIndicator.show()
         else binding.progressIndicator.hide()
+    }
+
+    private fun areFieldsOk(): Boolean {
+        var fieldsCorrect = true
+        val errorText = StringBuilder()
+
+        if (binding.nameInput.text.isNullOrEmpty()) {
+            errorText.append("Name")
+            fieldsCorrect =  false
+        }
+        if (binding.surnameInput.text.isNullOrEmpty()) {
+            if (!fieldsCorrect) errorText.append(", Surname")
+            else errorText.append("Surname")
+            fieldsCorrect =  false
+        }
+        if (binding.usernameInput.text.isNullOrEmpty()) {
+            if (!fieldsCorrect) errorText.append(", Username")
+            else errorText.append("Username")
+            fieldsCorrect =  false
+        }
+        if (binding.passwordInput.text.isNullOrEmpty()) {
+            if (!fieldsCorrect) errorText.append(" and Password")
+            else errorText.append("Password")
+            fieldsCorrect = false
+        } else {
+            val commaIndex = errorText.indexOfLast { it == Char(44) }
+            errorText.replace(commaIndex, commaIndex + 1, " and")
+        }
+
+        if (!fieldsCorrect) {
+            errorText.append(" Cannot be Empty")
+            Toast.makeText(this@RegisterActivity, errorText, Toast.LENGTH_LONG).show()
+
+        }
+
+
+        return fieldsCorrect
     }
 }

@@ -4,15 +4,17 @@ import java.util.List;
 
 public class User {
     private Long id;
-    private String type;
+    private List<String> type;
     private String name;
     private String surname;
     private String username = "Guest";
     private int age = 0;
     private double weight = 0.0;
-    private double height = 0.0;
+    private int height = 0;
     private String genre = "None";
     private List<Routine> routine;
+
+    private List<Record> records;
 
     public User() {
     }
@@ -25,11 +27,11 @@ public class User {
         this.id = id;
     }
 
-    public String getType() {
+    public List<String> getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(List<String> type) {
         this.type = type;
     }
 
@@ -73,11 +75,11 @@ public class User {
         this.weight = weight;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 

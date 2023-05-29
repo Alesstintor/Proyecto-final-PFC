@@ -1,5 +1,6 @@
 package com.ales.fittrackmobile.context
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.ales.fittrackmobile.api.ApiManager
 import com.ales.fittrackmobile.entities.Record
@@ -31,8 +32,12 @@ class UserContext: ViewModel() {
         apiManager.updateUser(context, user)
     }
 
-    fun fetchUserData(context: Context) {
-        apiManager.findUser(context)
+    suspend fun fetchUserData() {
+        val fetchedUser = apiManager.fetchUserData().getOrThrow()
+        Log.i("USERDATA", fetchedUser.toString())
+        if (fetchedUser != null) {
+            user = fetchedUser
+        }
     }
 
     suspend fun login(authenticationRequest: AuthenticationRequest) {

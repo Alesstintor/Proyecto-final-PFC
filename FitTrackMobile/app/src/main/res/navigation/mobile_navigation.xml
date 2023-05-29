@@ -18,7 +18,7 @@
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_user_page"
         android:name="com.ales.fittrackmobile.ui.user_page.UserPageFragment"
         android:label="@string/title_user_page"
         tools:layout="@layout/fragment_user_page" />

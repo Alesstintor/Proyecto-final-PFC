@@ -28,7 +28,7 @@ class UserPageEditView : AppCompatActivity() {
     private fun onDoneButtonClick() {
         userContext.user.username = binding.usernameValueEdit.text.toString()
         userContext.user.weight = binding.weightValueEdit.text.toString().toDouble()
-        userContext.user.height = binding.heightValueEdit.text.toString().toDouble()
+        userContext.user.height = binding.heightValueEdit.text.toString().toInt()
         userContext.user.age = binding.ageValueEdit.text.toString().toInt()
         userContext.user.genre = binding.genreValueEdit.text.toString()
 

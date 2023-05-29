@@ -28,32 +28,11 @@ class ApiManager {
 
     private val retrofit: Retrofit = Retrofit.Builder()
                                         .baseUrl("http://144.24.197.53:8080")
+                                        .client(HttpClient().client)
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build()
 
     private val apiAccess: ApiAccess = retrofit.create(ApiAccess::class.java)
-
-    fun findUser(context: Context) {
-        apiAccess.findUser().enqueue(object: Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                try {
-
-                    if (!response.isSuccessful) return
-
-                    val user = response.body() ?: User()
-
-                    //userContext.user = user
-
-                } catch (e: Exception) {
-                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-                }
-            }
-
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                Toast.makeText(context, "Connection Error", Toast.LENGTH_SHORT).show()
-            }
-        })
-    }
 
     fun updateUser(context: Context, user: User) {
         apiAccess.updateUser(user).enqueue(object: Callback<User> {
@@ -111,6 +90,26 @@ class ApiManager {
                 }
             } catch (e: Exception) {
                 Log.e("REGISTER", "Error on Register")
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun fetchUserData(): Result<User?>{
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.fetchUserData().execute()
+                if (response.isSuccessful) {
+                    Log.i("FETCH", "Fetch Successful")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("FETCH", "Fetch Unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("FETCH", "Error on Fetch")
+                Log.e("FETCH", e.message.toString() + e.stackTraceToString())
                 Result.failure(e)
             }
         }
