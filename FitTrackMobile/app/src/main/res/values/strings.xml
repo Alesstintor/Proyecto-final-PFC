@@ -25,4 +25,6 @@
     <string name="age_edit_hint">Age</string>
     <string name="genre_edit_hint">Genre</string>
     <string name="done_edit_button_text">Done</string>
+    <string name="surname_input_hint">Surname</string>
+    <string name="name_input_hint">Name</string>
 </resources>

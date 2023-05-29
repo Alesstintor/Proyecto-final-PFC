@@ -3,7 +3,6 @@ package com.ales.fittrackmobile.ui.user_page
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import com.ales.fittrackmobile.HomeActivity
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
@@ -11,7 +10,6 @@ import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
 class UserPageEditView : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserPageEditViewBinding
-    private lateinit var doneButton: Button
 
     private lateinit var userContext: UserContext
 
@@ -20,13 +18,11 @@ class UserPageEditView : AppCompatActivity() {
         binding = ActivityUserPageEditViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        doneButton = binding.doneEditButton
-
         userContext = UserContext.getInstance()
 
         loadUser()
 
-        doneButton.setOnClickListener{onDoneButtonClick()}
+        binding.doneEditButton.setOnClickListener{onDoneButtonClick()}
     }
 
     private fun onDoneButtonClick() {

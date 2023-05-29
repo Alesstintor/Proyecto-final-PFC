@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
-import com.ales.fittrackmobile.ui.CustomAdapter
+import com.ales.fittrackmobile.ui.RecordCustomAdapter
 
 class UserPageFragment : Fragment() {
 
@@ -61,7 +61,7 @@ class UserPageFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = CustomAdapter(userContext.recordList.orEmpty().toTypedArray())
+        recyclerView.adapter = RecordCustomAdapter(userContext.recordList.orEmpty().toTypedArray())
     }
 
     fun onEditProfileButtonClick() {

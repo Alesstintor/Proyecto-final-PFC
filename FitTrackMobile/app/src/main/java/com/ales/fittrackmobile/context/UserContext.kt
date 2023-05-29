@@ -4,12 +4,17 @@ import androidx.lifecycle.ViewModel
 import com.ales.fittrackmobile.api.ApiManager
 import com.ales.fittrackmobile.entities.Record
 import com.ales.fittrackmobile.entities.User
+import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
+import com.ales.fittrackmobile.entities.auth.RegisterRequest
 
 class UserContext: ViewModel() {
 
     var user: User = User()
     var recordList: List<Record>? = null
     private val apiManager = ApiManager.getInstance()
+    var token: String = ""
+
+
 
     companion object {
         @Volatile
@@ -30,7 +35,21 @@ class UserContext: ViewModel() {
         apiManager.findUser(context)
     }
 
-    fun findRecords(context: Context) {
-        apiManager.findRecords(context, user.id)
+    suspend fun login(authenticationRequest: AuthenticationRequest) {
+        val authResponse = apiManager.userLogin(authenticationRequest).getOrThrow()
+        if (authResponse != null) {
+            token = authResponse.token
+        }
+    }
+
+    suspend fun register(registerRequest: RegisterRequest) {
+        val authResponse = apiManager.userRegister(registerRequest).getOrThrow()
+        if (authResponse != null) {
+            token = authResponse.token
+        }
+    }
+
+    fun isUserLogged(): Boolean {
+        return token.isNotEmpty()
     }
 }

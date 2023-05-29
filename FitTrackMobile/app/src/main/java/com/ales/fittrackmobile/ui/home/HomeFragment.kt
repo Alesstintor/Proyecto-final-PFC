@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.ales.fittrackmobile.ui.CustomAdapter
-import com.ales.fittrackmobile.HomeActivity
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
+import com.ales.fittrackmobile.entities.Exercise
+import com.ales.fittrackmobile.ui.ExerciseCustomAdapter
 
 class HomeFragment : Fragment() {
 
@@ -39,7 +39,7 @@ class HomeFragment : Fragment() {
 
         recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = CustomAdapter(data)
+        recyclerView.adapter = ExerciseCustomAdapter(data)
 
         return root
     }
@@ -50,6 +50,6 @@ class HomeFragment : Fragment() {
     }
 
     val data = Array(10){
-        i -> HomeActivity.Exercise("Title $i", "Subtitle $i")
+        i -> Exercise()
     }
 }
