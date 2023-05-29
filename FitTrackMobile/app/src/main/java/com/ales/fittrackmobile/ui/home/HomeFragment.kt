@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
-import com.ales.fittrackmobile.entities.Exercise
-import com.ales.fittrackmobile.ui.ExerciseCustomAdapter
+import com.ales.fittrackmobile.ui.RoutineCustomAdapter
 
 class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
+    private lateinit var userContext: UserContext
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -24,6 +25,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        userContext = UserContext.getInstance()
         val homeViewModel =
             ViewModelProvider(this).get(HomeViewModel::class.java)
 
@@ -33,23 +35,23 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(viewLifecycleOwner) {
         }
 
+        createRecyclerView()
+
+        return root
+    }
+
+    private fun createRecyclerView() {
         val recyclerView = binding.recyclerView
 
         recyclerView.setHasFixedSize(true)
 
         recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = ExerciseCustomAdapter(data)
-
-        return root
+        recyclerView.adapter = RoutineCustomAdapter(userContext.user.routine.toTypedArray())
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    val data = Array(10){
-        i -> Exercise()
     }
 }
