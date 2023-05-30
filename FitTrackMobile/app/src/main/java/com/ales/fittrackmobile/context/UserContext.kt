@@ -31,12 +31,12 @@ class UserContext: ViewModel() {
         }
     }
 
-    suspend fun updateUser(newUser: User) {
-        val newUserData = apiManager.updateUser(newUser).getOrThrow()
+    suspend fun updateUser() {
+        val newUserData = apiManager.updateUser(user).getOrThrow()
         if (newUserData != null) {
             user = newUserData
         }
-        chechToken()
+        checkToken()
     }
 
     suspend fun fetchUserData() {
@@ -62,7 +62,7 @@ class UserContext: ViewModel() {
         }
     }
 
-    suspend private fun refreshToken() {
+    private suspend fun refreshToken() {
         val authResponse = apiManager.refreshToken().getOrThrow()
         if (authResponse != null) {
             token = authResponse.token
@@ -70,7 +70,7 @@ class UserContext: ViewModel() {
         }
     }
 
-    private fun chechToken() {
+    private fun checkToken() {
         GlobalScope.launch(Dispatchers.IO) {
             if (Date().time - tokenCreation.time > 2_400_000) {
                 refreshToken()

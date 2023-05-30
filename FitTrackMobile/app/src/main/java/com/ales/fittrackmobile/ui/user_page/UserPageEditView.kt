@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.ui.HomeActivity
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
@@ -31,6 +32,8 @@ class UserPageEditView : AppCompatActivity() {
 
         userContext = UserContext.getInstance()
 
+        title = getString(R.string.title_user_page_edit_view)
+
         loadUser()
 
         binding.doneEditButton.setOnClickListener{onDoneButtonClick()}
@@ -48,10 +51,15 @@ class UserPageEditView : AppCompatActivity() {
         if (newHeight.text.isNotEmpty()) newUser.height = newHeight.text.toString().toInt()
         if (newAge.text.isNotEmpty()) newUser.age = newAge.text.toString().toInt()
         if (newGenre.text.isNotEmpty()) newUser.genre = newGenre.text.toString()
+        userContext.user = newUser
 
+        saveUser()
+    }
+
+    private fun saveUser() {
         lifecycleScope.launch {
             try {
-                userContext.updateUser(newUser)
+                userContext.updateUser()
                 startActivity(Intent(this@UserPageEditView, HomeActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(

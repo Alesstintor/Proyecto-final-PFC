@@ -10,7 +10,6 @@
     <string name="already_an_account_text">Already an account?</string>
     <string name="login_text">Login</string>
     <string name="register_button_text">Register</string>
-    <string name="title_activity_main2">MainActivity2</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_user_page">Profile</string>
@@ -30,4 +29,8 @@
     <string name="name_hint_text">Name</string>
     <string name="name_view_text">Name</string>
     <string name="add_routine_button_text">Add Routine</string>
+    <string name="title_user_page_edit_view">Profile Edit</string>
+    <string name="add_exercise_button_text">Add Exercise</string>
+    <string name="new_routine_hint">New Routine</string>
+    <string name="save_routine_button_text">Save Routine</string>
 </resources>

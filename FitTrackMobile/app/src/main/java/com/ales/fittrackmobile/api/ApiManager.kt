@@ -125,7 +125,7 @@ class ApiManager {
                 Log.e("TOKEN", "Error on token refresh")
                 Result.failure(e)
             }
-    }
+        }
     }
 //    fun updateUser(user: User) {
 //        apiAccess.updateUser(user).enqueue(object: Callback<User> {
