@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.*
 import retrofit2.converter.gson.GsonConverterFactory
-import java.lang.Exception
+import kotlin.Exception
 
 class ApiManager {
 
@@ -107,6 +107,25 @@ class ApiManager {
                 Result.failure(e)
             }
         }
+    }
+
+    suspend fun refreshToken(): Result<AuthenticationResponse?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.refreshToken().execute()
+                if (response.isSuccessful) {
+                    Log.i("TOKEN", "Token refreshed successfully")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("TOKEN", "Token refresh unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("TOKEN", "Error on token refresh")
+                Result.failure(e)
+            }
+    }
     }
 //    fun updateUser(user: User) {
 //        apiAccess.updateUser(user).enqueue(object: Callback<User> {

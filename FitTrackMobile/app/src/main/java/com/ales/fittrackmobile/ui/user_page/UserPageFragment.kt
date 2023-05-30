@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
-import com.ales.fittrackmobile.ui.RecordCustomAdapter
+import com.ales.fittrackmobile.adapters.RecordCustomAdapter
 
 class UserPageFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile
+package com.ales.fittrackmobile.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile
+package com.ales.fittrackmobile.ui
 
 import android.os.Bundle
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.databinding.ActivityHomeBinding
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
 

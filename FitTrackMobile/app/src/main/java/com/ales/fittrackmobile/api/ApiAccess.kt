@@ -23,4 +23,7 @@ interface ApiAccess {
 
     @GET("/users/myUser")
     fun fetchUserData(): Call<User>
+
+    @GET("/auht/revalidate")
+    fun refreshToken(): Call<AuthenticationResponse>
 }

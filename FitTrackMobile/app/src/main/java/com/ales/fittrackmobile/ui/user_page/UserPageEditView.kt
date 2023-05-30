@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.ales.fittrackmobile.HomeActivity
+import com.ales.fittrackmobile.ui.HomeActivity
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
 import kotlinx.coroutines.launch
@@ -37,8 +37,11 @@ class UserPageEditView : AppCompatActivity() {
     }
 
     private fun onDoneButtonClick() {
+
         if (!checkValues()) return
+
         setLoading(true)
+
         val newUser = userContext.user
         if (newName.text.isNotEmpty()) newUser.name = newName.text.toString()
         if (newWeight.text.isNotEmpty()) newUser.weight = newWeight.text.toString().toDouble()
@@ -54,8 +57,8 @@ class UserPageEditView : AppCompatActivity() {
                 Toast.makeText(
                     this@UserPageEditView, "Error Updating", Toast.LENGTH_LONG).show()
             }
+            setLoading(false)
         }
-        setLoading(false)
     }
 
     private fun checkValues(): Boolean {
@@ -85,14 +88,14 @@ class UserPageEditView : AppCompatActivity() {
         newAge.setText(userContext.user.age.toString())
     }
 
-    private fun setLoading(loading: Boolean) {
-        binding.doneEditButton.isEnabled = !loading
-        binding.nameValueEdit.isEnabled = !loading
-        binding.weightValueEdit.isEnabled = !loading
-        binding.heightValueEdit.isEnabled = !loading
-        binding.ageValueEdit.isEnabled = !loading
-        binding.genreValueEdit.isEnabled = !loading
-        if (loading) binding.progressIndicator.show()
+    private fun setLoading(isLoading: Boolean) {
+        binding.doneEditButton.isEnabled = !isLoading
+        binding.nameValueEdit.isEnabled = !isLoading
+        binding.weightValueEdit.isEnabled = !isLoading
+        binding.heightValueEdit.isEnabled = !isLoading
+        binding.ageValueEdit.isEnabled = !isLoading
+        binding.genreValueEdit.isEnabled = !isLoading
+        if (isLoading) binding.progressIndicator.show()
         else binding.progressIndicator.hide()
     }
 

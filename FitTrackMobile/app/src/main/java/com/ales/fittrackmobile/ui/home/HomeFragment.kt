@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
-import com.ales.fittrackmobile.ui.RoutineCustomAdapter
+import com.ales.fittrackmobile.adapters.RoutineCustomAdapter
 
 class HomeFragment : Fragment() {
 
@@ -45,9 +45,11 @@ class HomeFragment : Fragment() {
 
         recyclerView.setHasFixedSize(true)
 
-        recyclerView.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager =
+            LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = RoutineCustomAdapter(userContext.user.routine.toTypedArray())
+        recyclerView.adapter =
+            RoutineCustomAdapter(userContext.user.routine.toTypedArray(), this.requireContext())
     }
 
     override fun onDestroyView() {

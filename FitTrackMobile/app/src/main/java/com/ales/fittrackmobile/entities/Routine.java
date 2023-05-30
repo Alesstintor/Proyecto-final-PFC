@@ -1,8 +1,9 @@
 package com.ales.fittrackmobile.entities;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Routine {
+public class Routine implements Serializable {
     private Long id;
     private String name;
     private String description;

@@ -29,4 +29,5 @@
     <string name="name_input_hint">Name</string>
     <string name="name_hint_text">Name</string>
     <string name="name_view_text">Name</string>
+    <string name="add_routine_button_text">Add Routine</string>
 </resources>
