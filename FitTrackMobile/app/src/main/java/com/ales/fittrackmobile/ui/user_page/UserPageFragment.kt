@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
 import com.ales.fittrackmobile.adapters.RecordCustomAdapter
+import com.ales.fittrackmobile.ui.LoginActivity
 
 class UserPageFragment : Fragment() {
 
@@ -21,6 +22,7 @@ class UserPageFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var editProfile: Button
+    private lateinit var logoutButton: Button
 
     private lateinit var userContext: UserContext
 
@@ -39,11 +41,21 @@ class UserPageFragment : Fragment() {
 
         loadUser()
 
-        editProfile = binding.editProfileButton
-
-        editProfile.setOnClickListener{onEditProfileButtonClick()}
+        binding.editProfileButton.setOnClickListener{onEditProfileButtonClick()}
+        binding.logoutButton.setOnClickListener{onLogoutButtonClick()}
 
         return root
+    }
+
+    private fun onLogoutButtonClick() {
+        userContext.logout()
+        startActivity(Intent(this.requireContext(), LoginActivity::class.java))
+        activity?.finish()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadUser()
     }
 
     private fun loadUser() {

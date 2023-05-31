@@ -1,5 +1,6 @@
 package com.ales.fittrackmobile.ui
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -23,6 +24,11 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         userContext = UserContext.getInstance()
+
+        userContext.sharedPreferences =
+            getSharedPreferences("FittrackPrefs", Context.MODE_PRIVATE)
+
+        if (userContext.doLocalTokenExist()) doTokenLogin()
 
         binding.loginButton.setOnClickListener { onLoginButtonClick() }
 
@@ -77,7 +83,10 @@ class LoginActivity : AppCompatActivity() {
             try {
                 userContext.login(authRequest)
                 userContext.fetchUserData()
+                userContext.fetchExercisesData()
+                userContext.fetchRoutinesData()
                 startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                finish()
             } catch (e: Exception) {
                 Toast.makeText(this@LoginActivity,
                     "Incorrect Credentials", Toast.LENGTH_LONG).show()
@@ -86,6 +95,23 @@ class LoginActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun doTokenLogin() {
+        setLoading(true)
+        lifecycleScope.launch {
+            try {
+                userContext.tokenLogin()
+                userContext.fetchUserData()
+                userContext.fetchExercisesData()
+                userContext.fetchRoutinesData()
+                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                finish()
+            } catch (_: Exception) {}
+            finally {
+                setLoading(false)
+            }
+        }
     }
 
     private fun setLoading(loading: Boolean) {

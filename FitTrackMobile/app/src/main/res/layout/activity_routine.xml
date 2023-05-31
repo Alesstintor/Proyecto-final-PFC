@@ -6,24 +6,59 @@
     android:layout_height="match_parent"
     tools:context=".ui.RoutineActivity">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/title_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
     <EditText
         android:id="@+id/title_value_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
         android:hint="@string/new_routine_hint"
-        android:inputType="none"
+        android:inputType="text"
         android:importantForAutofill="no"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         />
 
+    <TextView
+        android:id="@+id/title_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/routine_initial_title"
+        android:textSize="30sp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageButton
+        android:id="@+id/edit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_edit_black_48"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
+        android:backgroundTint="@color/purple_700"
+        app:layout_constraintStart_toEndOf="@id/title_container"
+        app:layout_constraintTop_toTopOf="@id/title_container"
+        app:layout_constraintBottom_toBottomOf="@id/title_container"
+        android:contentDescription="@string/edit_button_content_description" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title_value_edit"/>
+        app:layout_constraintTop_toBottomOf="@id/title_container"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/add_exercise_button"

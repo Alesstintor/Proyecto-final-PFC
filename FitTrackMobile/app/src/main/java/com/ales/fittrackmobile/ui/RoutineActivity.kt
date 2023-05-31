@@ -1,9 +1,12 @@
 package com.ales.fittrackmobile.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.InputType
 import android.view.View
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.adapters.ExerciseCustomAdapter
@@ -16,9 +19,10 @@ class RoutineActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRoutineBinding
     private lateinit var userContext: UserContext
-    private var routineId = 1L
+    private var routineId = -1L
     private var isNewRoutine = false
     private var activeRoutine = Routine()
+    private lateinit var getExerciseToAdd : ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,20 +35,38 @@ class RoutineActivity : AppCompatActivity() {
 
         createRecyclerView()
         toggleEditMode(isNewRoutine)
+        getExerciseToAdd = makeRegisterForActivityResult()
 
         binding.addExerciseButton.setOnClickListener {onAddExerciseButtonClick()}
         binding.saveRoutineButton.setOnClickListener {onSaveRoutineButtonClick()}
+        binding.editButton.setOnClickListener{toggleEditMode(true)}
+    }
+
+    private fun makeRegisterForActivityResult(): ActivityResultLauncher<Intent> {
+        return registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()) {
+            val exerciseId = it.data?.getLongExtra("EXERCISEID", -1)
+            if (exerciseId != -1L) {
+                val exerciseToAdd =
+                    userContext.exercisesList.find { exercise -> exercise.id == exerciseId }
+
+                if (exerciseToAdd != null) {
+                    activeRoutine.exerciseList.add(exerciseToAdd)
+                    updateRecyclerView()
+                }
+            }
+        }
     }
 
     private fun onAddExerciseButtonClick() {
-
+        getExerciseToAdd.launch(Intent(this@RoutineActivity, AddExerciseActivity::class.java))
     }
 
-    private fun saveNewRoutine() {
-        userContext.user.routine.add(activeRoutine)
+    private fun saveNewRoutine(newRoutine: Routine) {
+        userContext.user.routine.add(newRoutine)
     }
 
-    private fun updateRoutine() {
+    private fun updateExistingRoutine() {
         val routineIterator = userContext.user.routine.listIterator()
 
         while (routineIterator.hasNext()) {
@@ -54,21 +76,33 @@ class RoutineActivity : AppCompatActivity() {
     }
 
     private fun onSaveRoutineButtonClick() {
-        if (isNewRoutine) saveNewRoutine()
-        else updateRoutine()
+        if (binding.titleValueEdit.text.isNotEmpty()) {
+            activeRoutine.name = binding.titleValueEdit.text.toString()
+        }
+
+        if (!isNewRoutine) updateExistingRoutine()
 
         lifecycleScope.launch {
+            try {
+            val newRoutine = userContext.saveRoutine(activeRoutine)
+            if (isNewRoutine) saveNewRoutine(newRoutine)
             userContext.updateUser()
             toggleEditMode(false)
+            } catch (e: Exception) {
+                Toast.makeText(this@RoutineActivity,
+                    "Error Saving the Routine", Toast.LENGTH_SHORT).show()
+            }
         }
 
     }
 
     private fun toggleEditMode(inEditMode: Boolean) {
+        binding.titleValue.visibility = if (inEditMode) View.GONE else View.VISIBLE
+        binding.editButton.visibility = if (inEditMode) View.GONE else View.VISIBLE
+
+        binding.titleValueEdit.visibility = if (inEditMode) View.VISIBLE else View.GONE
         binding.addExerciseButton.visibility = if (inEditMode) View.VISIBLE else View.GONE
         binding.saveRoutineButton.visibility = if (inEditMode) View.VISIBLE else View.GONE
-        binding.titleValueEdit.inputType =
-            if (inEditMode) InputType.TYPE_CLASS_TEXT else InputType.TYPE_NULL
 
     }
 
@@ -82,15 +116,21 @@ class RoutineActivity : AppCompatActivity() {
 
         if (isNewRoutine) {
             recyclerView.adapter = ExerciseCustomAdapter(emptyArray())
+            activeRoutine.name = "Routine"
             return
         }
 
-        routineId = intent.getLongExtra("ROUTINEID", 1)
+        routineId = intent.getLongExtra("ROUTINEID", -1)
 
         activeRoutine = userContext.user.routine.first { routine -> routine.id == routineId }
 
         binding.titleValueEdit.setText(activeRoutine.name)
+        binding.titleValue.text = activeRoutine.name
 
         recyclerView.adapter = ExerciseCustomAdapter(activeRoutine.exerciseList.toTypedArray())
+    }
+
+    private fun updateRecyclerView() {
+        binding.recyclerView.adapter = ExerciseCustomAdapter(activeRoutine.exerciseList.toTypedArray())
     }
 }

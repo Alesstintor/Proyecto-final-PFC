@@ -1,5 +1,7 @@
 package com.ales.fittrackmobile.api
 
+import com.ales.fittrackmobile.entities.Exercise
+import com.ales.fittrackmobile.entities.Routine
 import com.ales.fittrackmobile.entities.User
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
 import com.ales.fittrackmobile.entities.auth.AuthenticationResponse
@@ -24,6 +26,17 @@ interface ApiAccess {
     @GET("/users/myUser")
     fun fetchUserData(): Call<User>
 
-    @GET("/auht/revalidate")
+    @GET("/auth/revalidate")
     fun refreshToken(): Call<AuthenticationResponse>
+
+    @GET("/exercises")
+    fun fetchAllExercises(): Call<List<Exercise>>
+
+    @GET("/routines")
+    fun fetchAllRoutines(): Call<List<Routine>>
+
+    @POST("/routines")
+    fun saveRoutine(@Body routine: Routine): Call<Routine>
+
+
 }

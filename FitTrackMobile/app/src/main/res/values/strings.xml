@@ -33,4 +33,7 @@
     <string name="add_exercise_button_text">Add Exercise</string>
     <string name="new_routine_hint">New Routine</string>
     <string name="save_routine_button_text">Save Routine</string>
+    <string name="routine_initial_title">New Routine</string>
+    <string name="logout_button_text">Logout</string>
+    <string name="edit_button_content_description">Edit button</string>
 </resources>

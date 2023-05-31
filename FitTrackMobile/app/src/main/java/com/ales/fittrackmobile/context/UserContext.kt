@@ -1,7 +1,10 @@
 package com.ales.fittrackmobile.context
+import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
 import com.ales.fittrackmobile.api.ApiManager
+import com.ales.fittrackmobile.entities.Exercise
 import com.ales.fittrackmobile.entities.Record
+import com.ales.fittrackmobile.entities.Routine
 import com.ales.fittrackmobile.entities.User
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
@@ -17,7 +20,9 @@ class UserContext: ViewModel() {
     private val apiManager = ApiManager.getInstance()
     var token: String = ""
     private var tokenCreation = Date()
-
+    var exercisesList: List<Exercise> = ArrayList()
+    var routinesList: List<Routine> = ArrayList()
+    lateinit var sharedPreferences: SharedPreferences
 
 
     companion object {
@@ -36,7 +41,6 @@ class UserContext: ViewModel() {
         if (newUserData != null) {
             user = newUserData
         }
-        checkToken()
     }
 
     suspend fun fetchUserData() {
@@ -44,30 +48,54 @@ class UserContext: ViewModel() {
         if (fetchedUser != null) {
             user = fetchedUser
         }
+        checkToken()
+    }
+
+    suspend fun fetchExercisesData() {
+        val fetchedData = apiManager.fetchExercisesData().getOrThrow()
+        if (fetchedData != null) {
+            exercisesList = fetchedData
+        }
+    }
+
+    suspend fun fetchRoutinesData() {
+        val fetchedData = apiManager.fetchRoutinesData().getOrThrow()
+        if (fetchedData != null) {
+            routinesList = fetchedData
+        }
+    }
+
+    suspend fun saveRoutine(routine: Routine): Routine {
+        val fetchedData = apiManager.saveRoutine(routine).getOrThrow()
+        if (fetchedData != null) {
+            fetchRoutinesData()
+            return fetchedData
+        }
+        throw Exception("Routine Received is null")
     }
 
     suspend fun login(authenticationRequest: AuthenticationRequest) {
         val authResponse = apiManager.userLogin(authenticationRequest).getOrThrow()
         if (authResponse != null) {
-            token = authResponse.token
-            tokenCreation = Date()
+            saveToken(authResponse.token)
         }
     }
 
     suspend fun register(registerRequest: RegisterRequest) {
         val authResponse = apiManager.userRegister(registerRequest).getOrThrow()
         if (authResponse != null) {
-            token = authResponse.token
-            tokenCreation = Date()
+            saveToken(authResponse.token)
         }
     }
 
     private suspend fun refreshToken() {
         val authResponse = apiManager.refreshToken().getOrThrow()
         if (authResponse != null) {
-            token = authResponse.token
-            tokenCreation = Date()
+            saveToken(authResponse.token)
         }
+    }
+    suspend fun tokenLogin() {
+        refreshToken()
     }
 
     private fun checkToken() {
@@ -77,4 +105,28 @@ class UserContext: ViewModel() {
             }
         }
     }
+
+    private fun saveToken(newToken: String) {
+        token = newToken
+        tokenCreation = Date()
+        val editor = sharedPreferences.edit()
+        editor.putString("authToken", token)
+        editor.apply()
+    }
+
+    fun doLocalTokenExist(): Boolean {
+        val authToken = sharedPreferences.getString("authToken", null)
+        if (authToken != null) {
+            token = authToken
+            return true
+        }
+        return false
+    }
+
+    fun logout() {
+        val editor = sharedPreferences.edit()
+        editor.putString("authToken", null)
+        editor.apply()
+    }
+
 }

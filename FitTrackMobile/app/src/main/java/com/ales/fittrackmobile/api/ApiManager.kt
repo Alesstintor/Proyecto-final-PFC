@@ -1,6 +1,8 @@
 package com.ales.fittrackmobile.api
 
 import android.util.Log
+import com.ales.fittrackmobile.entities.Exercise
+import com.ales.fittrackmobile.entities.Routine
 import com.ales.fittrackmobile.entities.User
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
 import com.ales.fittrackmobile.entities.auth.AuthenticationResponse
@@ -76,15 +78,15 @@ class ApiManager {
             try {
                 val response = apiAccess.fetchUserData().execute()
                 if (response.isSuccessful) {
-                    Log.i("FETCH", "Fetch Successful")
+                    Log.i("USERDATA", "Fetch Successful")
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("FETCH", "Fetch Unsuccessful")
+                    Log.i("USERDATA", "Fetch Unsuccessful")
                     Result.failure(Exception(response.message()))
                 }
             } catch (e: Exception) {
-                Log.e("FETCH", "Error on Fetch")
+                Log.e("USERDATA", "Error on Fetch")
                 Result.failure(e)
             }
         }
@@ -95,15 +97,15 @@ class ApiManager {
             try {
                 val response = apiAccess.updateUser(user).execute()
                 if (response.isSuccessful) {
-                    Log.i("PATCH", "Patch Successful")
+                    Log.i("USERUPDATE", "Patch Successful")
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("PATCH", "Patch Unsuccessful")
+                    Log.i("USERUPDATE", "Patch Unsuccessful")
                     Result.failure(Exception(response.message()))
                 }
             } catch (e: Exception) {
-                Log.e("PATCH", "Error on Patch")
+                Log.e("USERUPDATE", "Error on Patch")
                 Result.failure(e)
             }
         }
@@ -123,6 +125,64 @@ class ApiManager {
                 }
             } catch (e: Exception) {
                 Log.e("TOKEN", "Error on token refresh")
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun fetchExercisesData(): Result<List<Exercise>?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.fetchAllExercises().execute()
+                if (response.isSuccessful) {
+                    Log.i("EXERCISES", "Fetch Successful")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("EXERCISES", "Fetch unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("EXERCISES", "Error on Fetch")
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun fetchRoutinesData(): Result<List<Routine>?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.fetchAllRoutines().execute()
+                if (response.isSuccessful) {
+                    Log.i("ROUTINES", "Fetch Successful")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("ROUTINES", "Fetch unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("ROUTINES", "Error on Fetch")
+                Result.failure(e)
+            }
+        }
+
+    }
+
+    suspend fun saveRoutine(routine: Routine): Result<Routine?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.saveRoutine(routine).execute()
+                if (response.isSuccessful) {
+                    Log.i("ROUTINES", "Saving Successful")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("ROUTINES", "Saving unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("ROUTINES", "Error on Saving")
                 Result.failure(e)
             }
         }

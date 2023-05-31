@@ -1,13 +1,11 @@
 package com.ales.fittrackmobile.ui.user_page
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.R
-import com.ales.fittrackmobile.ui.HomeActivity
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
 import kotlinx.coroutines.launch
@@ -60,7 +58,8 @@ class UserPageEditView : AppCompatActivity() {
         lifecycleScope.launch {
             try {
                 userContext.updateUser()
-                startActivity(Intent(this@UserPageEditView, HomeActivity::class.java))
+                finish()
+                //startActivity(Intent(this@UserPageEditView, HomeActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(
                     this@UserPageEditView, "Error Updating", Toast.LENGTH_LONG).show()

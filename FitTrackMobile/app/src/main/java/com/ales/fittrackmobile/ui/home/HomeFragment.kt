@@ -38,6 +38,16 @@ class HomeFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateRecyclerView()
+    }
+
+    private fun updateRecyclerView() {
+        binding.recyclerView.adapter =
+            RoutineCustomAdapter(userContext.user.routine.toTypedArray(), this.requireContext())
+    }
+
     private fun onAddRoutineButtonClick() {
         val intent = Intent(this.context, RoutineActivity::class.java)
         intent.putExtra("ISNEW", true)

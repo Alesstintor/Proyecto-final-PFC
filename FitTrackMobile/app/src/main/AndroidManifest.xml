@@ -15,6 +15,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.AddExerciseActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.RoutineActivity"
             android:exported="false" />
         <activity

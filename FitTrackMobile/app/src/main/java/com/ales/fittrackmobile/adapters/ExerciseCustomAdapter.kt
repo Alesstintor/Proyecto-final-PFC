@@ -12,6 +12,8 @@ import com.ales.fittrackmobile.entities.Exercise
 class ExerciseCustomAdapter(private val data: Array<Exercise>) :
     RecyclerView.Adapter<ExerciseCustomAdapter.ViewHolder>() {
 
+    private var onItemClickListener: OnItemClickListener? = null
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         val lblTitulo = view.findViewById(R.id.list_item_title) as TextView
@@ -31,6 +33,18 @@ class ExerciseCustomAdapter(private val data: Array<Exercise>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val exercise = data[position]
         holder.bindItem(exercise)
+        holder.itemView.setOnClickListener{
+            onItemClickListener?.onItemClick(position)
+        }
     }
     override fun getItemCount() = data.size
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        onItemClickListener = listener
+    }
+    interface OnItemClickListener {
+        fun onItemClick(position: Int)
+    }
+
 }
+

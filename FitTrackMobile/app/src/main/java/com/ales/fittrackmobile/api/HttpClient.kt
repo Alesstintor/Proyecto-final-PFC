@@ -14,7 +14,7 @@ class HttpClient {
 
             if (token.isNotEmpty()) {
                 newRequest = originalRequest.newBuilder()
-                .header("Authorization", "Bearer " + token)
+                .header("Authorization", "Bearer $token")
                 .build()
             }
 
