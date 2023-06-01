@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.entities.Routine
-import com.ales.fittrackmobile.ui.RoutineActivity
+import com.ales.fittrackmobile.ui.routine.RoutineActivity
 
 class RoutineCustomAdapter(private val data: Array<Routine>, val context: Context) :
     RecyclerView.Adapter<RoutineCustomAdapter.ViewHolder>() {

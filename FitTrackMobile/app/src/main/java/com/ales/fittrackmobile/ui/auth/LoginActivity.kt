@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile.ui
+package com.ales.fittrackmobile.ui.auth
 
 import android.content.Context
 import android.content.Intent
@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityLoginBinding
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
+import com.ales.fittrackmobile.ui.MainActivity
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.lang.StringBuilder
@@ -85,7 +86,7 @@ class LoginActivity : AppCompatActivity() {
                 userContext.fetchUserData()
                 userContext.fetchExercisesData()
                 userContext.fetchRoutinesData()
-                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             } catch (e: Exception) {
                 Toast.makeText(this@LoginActivity,
@@ -106,7 +107,7 @@ class LoginActivity : AppCompatActivity() {
                 userContext.fetchUserData()
                 userContext.fetchExercisesData()
                 userContext.fetchRoutinesData()
-                startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                 finish()
             } catch (e: Exception) {
                 setLoading(false)

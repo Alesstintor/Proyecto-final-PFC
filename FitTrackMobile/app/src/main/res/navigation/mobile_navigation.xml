@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.ales.fittrackmobile.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        android:id="@+id/navigation_tools"
+        android:name="com.ales.fittrackmobile.ui.tools.ToolsFragment"
+        android:label="@string/title_tools"
+        tools:layout="@layout/fragment_tools" />
 
     <fragment
         android:id="@+id/navigation_user_page"

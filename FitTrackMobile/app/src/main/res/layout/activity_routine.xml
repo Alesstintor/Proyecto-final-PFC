@@ -1,93 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.RoutineActivity">
+    tools:context=".ui.routine.RoutineActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/title_container"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:padding="20dp">
 
-    <EditText
-        android:id="@+id/title_value_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:hint="@string/new_routine_hint"
-        android:inputType="text"
-        android:importantForAutofill="no"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/title_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <TextView
-        android:id="@+id/title_value"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/routine_initial_title"
-        android:textSize="30sp"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        <EditText
+            android:id="@+id/title_value_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:hint="@string/new_routine_hint"
+            android:inputType="text"
+            android:importantForAutofill="no"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <TextView
+            android:id="@+id/title_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/routine_initial_title"
+            android:textSize="30sp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ImageButton
+            android:id="@+id/edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/ic_edit_black_48"
+            android:layout_marginTop="5dp"
+            android:layout_marginStart="20dp"
+            android:backgroundTint="@color/purple_700"
+            app:layout_constraintStart_toEndOf="@id/title_container"
+            app:layout_constraintTop_toTopOf="@id/title_container"
+            app:layout_constraintBottom_toBottomOf="@id/title_container"
+            android:contentDescription="@string/edit_button_content_description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/title_container"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/add_exercise_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/routine_card"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:padding="15dp"
+            android:text="@string/add_exercise_button_text"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/recycler_view"
+            app:backgroundTint="@color/purple_700"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/save_routine_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/routine_card"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:padding="15dp"
+            android:text="@string/save_routine_button_text"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/add_exercise_button"
+            app:backgroundTint="@color/teal_200"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/delete_routine_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/routine_card"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:padding="15dp"
+            android:text="@string/delete_routine_button_text"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/save_routine_button"
+            app:backgroundTint="@color/red"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ImageButton
-        android:id="@+id/edit_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_edit_black_48"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="20dp"
-        android:backgroundTint="@color/purple_700"
-        app:layout_constraintStart_toEndOf="@id/title_container"
-        app:layout_constraintTop_toTopOf="@id/title_container"
-        app:layout_constraintBottom_toBottomOf="@id/title_container"
-        android:contentDescription="@string/edit_button_content_description" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/title_container"/>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/add_exercise_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/routine_card"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:padding="15dp"
-        android:text="@string/add_exercise_button_text"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/recycler_view"
-        app:backgroundTint="@color/purple_700"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/save_routine_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/routine_card"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:padding="15dp"
-        android:text="@string/save_routine_button_text"
-        android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/add_exercise_button"
-        app:backgroundTint="@color/teal_200"
-        app:layout_constraintEnd_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

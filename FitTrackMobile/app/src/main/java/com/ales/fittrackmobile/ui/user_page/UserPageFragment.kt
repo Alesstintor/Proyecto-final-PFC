@@ -5,13 +5,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentUserPageBinding
 import com.ales.fittrackmobile.adapters.RecordCustomAdapter
-import com.ales.fittrackmobile.ui.LoginActivity
+import com.ales.fittrackmobile.ui.auth.LoginActivity
 
 class UserPageFragment : Fragment() {
 
@@ -20,9 +19,6 @@ class UserPageFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private lateinit var editProfile: Button
-    private lateinit var logoutButton: Button
 
     private lateinit var userContext: UserContext
 

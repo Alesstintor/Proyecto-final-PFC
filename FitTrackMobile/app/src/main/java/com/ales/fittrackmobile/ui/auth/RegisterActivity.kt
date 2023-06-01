@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile.ui
+package com.ales.fittrackmobile.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityRegisterBinding
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
+import com.ales.fittrackmobile.ui.MainActivity
 import kotlinx.coroutines.launch
 import java.lang.Exception
 import java.lang.StringBuilder
@@ -55,7 +56,7 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 userContext.register(registerRequest)
                 userContext.fetchUserData()
-                startActivity(Intent(this@RegisterActivity, HomeActivity::class.java))
+                startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(this@RegisterActivity,
                     "Registration Error", Toast.LENGTH_LONG).show()

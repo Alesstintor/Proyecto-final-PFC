@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingHorizontal="50dp"
-    tools:context=".ui.ExerciseActivity">
+    tools:context=".ui.exercise.ExerciseActivity">
 
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/title_value"

@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile.ui
+package com.ales.fittrackmobile.ui.exercise
 
 import android.app.Activity
 import android.content.Intent
@@ -59,14 +59,14 @@ class AddExerciseActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(
             this@AddExerciseActivity, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = buildAdapter(userContext.exercisesList.toTypedArray())
+        recyclerView.adapter = buildAdapter(userContext.exercisesList.toMutableList())
     }
 
     private fun updateRecyclerView() {
-        binding.recyclerView.adapter = buildAdapter(userContext.exercisesList.toTypedArray())
+        binding.recyclerView.adapter = buildAdapter(userContext.exercisesList.toMutableList())
     }
 
-    private fun buildAdapter(exerciseArray: Array<Exercise>): ExerciseCustomAdapter {
+    private fun buildAdapter(exerciseArray: MutableList<Exercise>): ExerciseCustomAdapter {
         val exerciseAdapter = ExerciseCustomAdapter(exerciseArray)
 
         exerciseAdapter.setOnItemClickListener(object: ExerciseCustomAdapter.OnItemClickListener {

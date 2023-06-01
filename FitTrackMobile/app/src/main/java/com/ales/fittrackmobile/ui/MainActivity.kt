@@ -8,20 +8,20 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ales.fittrackmobile.R
-import com.ales.fittrackmobile.databinding.ActivityHomeBinding
+import com.ales.fittrackmobile.databinding.ActivityMainBinding
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
 
 
-class HomeActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityHomeBinding
+    private lateinit var binding: ActivityMainBinding
 
     private lateinit var homeBinding: FragmentHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
         homeBinding = FragmentHomeBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
@@ -33,7 +33,7 @@ class HomeActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_home, R.id.navigation_dashboard, R.id.navigation_user_page
+                R.id.navigation_home, R.id.navigation_tools, R.id.navigation_user_page
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

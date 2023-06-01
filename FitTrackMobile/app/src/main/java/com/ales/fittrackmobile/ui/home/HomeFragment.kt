@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.FragmentHomeBinding
 import com.ales.fittrackmobile.adapters.RoutineCustomAdapter
-import com.ales.fittrackmobile.ui.RoutineActivity
+import com.ales.fittrackmobile.ui.routine.RoutineActivity
 
 class HomeFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.ales.fittrackmobile.ui
+package com.ales.fittrackmobile.ui.exercise
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -118,10 +118,20 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun onAddMuscleButtonClick() {
+        if (selectedMuscles.size >= 4) {
+            Toast.makeText(this@ExerciseActivity,
+                "Max number of muscles reached", Toast.LENGTH_SHORT).show()
+            return
+        }
+
         val muscle = binding.muscleEditText.text.toString().uppercase()
 
         if (muscle.isBlank()) return
         if (!Muscles.values().any { it.name == muscle }) return
+        if (selectedMuscles.contains(Muscles.valueOf(muscle))) {
+            binding.muscleEditText.text = null
+            return
+        }
 
         addChip(muscle)
         selectedMuscles.add(Muscles.valueOf(muscle))
