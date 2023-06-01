@@ -44,4 +44,14 @@
     <string name="exercise_title_hint">Exercise Title</string>
     <string name="description_hint">Description…</string>
     <string name="delete_routine_button_text">Delete Routine</string>
+    <string name="weight_rm_hint">Weight</string>
+    <string name="reps_rm_hint">Reps</string>
+    <string name="calculate_button_text">Calculate</string>
+    <string name="rm_calculator_label">1RM CALCULATOR</string>
+    <string name="units_hint">Units</string>
+
+    <string-array name="weight_units">
+        <item>Kg</item>
+        <item>Lb</item>
+    </string-array>
 </resources>

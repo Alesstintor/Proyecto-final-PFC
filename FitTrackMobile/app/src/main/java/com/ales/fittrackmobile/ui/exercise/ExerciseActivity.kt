@@ -48,6 +48,16 @@ class ExerciseActivity : AppCompatActivity() {
         binding.addMuscleButton.setOnClickListener{onAddMuscleButtonClick()}
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun getAutocompleteAdapter(list: List<String>): ArrayAdapter<String> {
 
         return ArrayAdapter(
@@ -84,15 +94,6 @@ class ExerciseActivity : AppCompatActivity() {
          }
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
     private fun setNewExercise() {
         exercise.name = binding.titleValue.text.toString()
