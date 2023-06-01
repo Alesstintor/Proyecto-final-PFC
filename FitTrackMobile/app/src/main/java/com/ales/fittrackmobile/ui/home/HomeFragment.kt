@@ -50,7 +50,6 @@ class HomeFragment : Fragment() {
 
     private fun onAddRoutineButtonClick() {
         val intent = Intent(this.context, RoutineActivity::class.java)
-        intent.putExtra("ISNEW", true)
         startActivity(intent)
     }
 

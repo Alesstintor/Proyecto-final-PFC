@@ -38,5 +38,8 @@ interface ApiAccess {
     @POST("/routines")
     fun saveRoutine(@Body routine: Routine): Call<Routine>
 
+    @POST("/exercises")
+    fun saveExercise(@Body exercise: Exercise): Call<Exercise>
+
 
 }

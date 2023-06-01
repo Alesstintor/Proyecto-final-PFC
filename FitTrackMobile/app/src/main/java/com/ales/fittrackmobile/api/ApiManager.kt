@@ -174,15 +174,35 @@ class ApiManager {
             try {
                 val response = apiAccess.saveRoutine(routine).execute()
                 if (response.isSuccessful) {
-                    Log.i("ROUTINES", "Saving Successful")
+                    Log.i("ROUTINE", "Saving Successful")
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("ROUTINES", "Saving unsuccessful")
+                    Log.i("ROUTINE", "Saving unsuccessful")
                     Result.failure(Exception(response.message()))
                 }
             } catch (e: Exception) {
-                Log.e("ROUTINES", "Error on Saving")
+                Log.e("ROUTINE", "Error on Saving")
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun saveExercise(exercise: Exercise): Result<Exercise?> {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiAccess.saveExercise(exercise).execute()
+                if (response.isSuccessful) {
+                    Log.i("EXERCISE", "Saving Successful")
+                    val data = response.body()
+                    Result.success(data)
+                } else {
+                    Log.i("EXERCISE", "Saving unsuccessful")
+                    Result.failure(Exception(response.message()))
+                }
+            } catch (e: Exception) {
+                Log.e("EXERCISE", "Error on Saving")
+                Log.e("EXERCISE", e.stackTraceToString())
                 Result.failure(e)
             }
         }

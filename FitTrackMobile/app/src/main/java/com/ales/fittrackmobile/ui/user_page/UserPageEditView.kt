@@ -2,12 +2,14 @@ package com.ales.fittrackmobile.ui.user_page
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityUserPageEditViewBinding
+import com.ales.fittrackmobile.entities.User
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -35,6 +37,18 @@ class UserPageEditView : AppCompatActivity() {
         loadUser()
 
         binding.doneEditButton.setOnClickListener{onDoneButtonClick()}
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun onDoneButtonClick() {
@@ -43,28 +57,32 @@ class UserPageEditView : AppCompatActivity() {
 
         setLoading(true)
 
+        val newUser = getNewUser()
+
+        saveUser(newUser)
+    }
+
+    private fun getNewUser(): User {
         val newUser = userContext.user
         if (newName.text.isNotEmpty()) newUser.name = newName.text.toString()
         if (newWeight.text.isNotEmpty()) newUser.weight = newWeight.text.toString().toDouble()
         if (newHeight.text.isNotEmpty()) newUser.height = newHeight.text.toString().toInt()
         if (newAge.text.isNotEmpty()) newUser.age = newAge.text.toString().toInt()
         if (newGenre.text.isNotEmpty()) newUser.genre = newGenre.text.toString()
-        userContext.user = newUser
-
-        saveUser()
+       return newUser
     }
 
-    private fun saveUser() {
+    private fun saveUser(newUser: User) {
         lifecycleScope.launch {
             try {
+                userContext.user = newUser
                 userContext.updateUser()
                 finish()
-                //startActivity(Intent(this@UserPageEditView, HomeActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(
                     this@UserPageEditView, "Error Updating", Toast.LENGTH_LONG).show()
-            }
             setLoading(false)
+            }
         }
     }
 

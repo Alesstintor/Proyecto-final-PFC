@@ -88,6 +88,14 @@ class UserContext: ViewModel() {
         }
     }
 
+    suspend fun saveExercise(exercise: Exercise): Exercise {
+        val fetchedData: Exercise? = apiManager.saveExercise(exercise).getOrThrow()
+        if (fetchedData != null) {
+            return fetchedData
+        }
+        throw Exception("Exercise Received is null")
+    }
+
     private suspend fun refreshToken() {
         val authResponse = apiManager.refreshToken().getOrThrow()
         if (authResponse != null) {

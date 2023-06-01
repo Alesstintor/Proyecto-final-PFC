@@ -90,8 +90,9 @@ class LoginActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this@LoginActivity,
                     "Incorrect Credentials", Toast.LENGTH_LONG).show()
+                setLoading(false)
             }
-            setLoading(false)
+
         }
 
 
@@ -107,10 +108,10 @@ class LoginActivity : AppCompatActivity() {
                 userContext.fetchRoutinesData()
                 startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                 finish()
-            } catch (_: Exception) {}
-            finally {
+            } catch (e: Exception) {
                 setLoading(false)
             }
+
         }
     }
 

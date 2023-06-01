@@ -32,6 +32,7 @@ class ExerciseCustomAdapter(private val data: Array<Exercise>) :
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val exercise = data[position]
+        if (exercise == null) return
         holder.bindItem(exercise)
         holder.itemView.setOnClickListener{
             onItemClickListener?.onItemClick(position)
@@ -42,6 +43,7 @@ class ExerciseCustomAdapter(private val data: Array<Exercise>) :
     fun setOnItemClickListener(listener: OnItemClickListener) {
         onItemClickListener = listener
     }
+
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }

@@ -36,4 +36,11 @@
     <string name="routine_initial_title">New Routine</string>
     <string name="logout_button_text">Logout</string>
     <string name="edit_button_content_description">Edit button</string>
+    <string name="create_exercise_button_text">Create Exercise</string>
+    <string name="exercise_description_label_text">Description</string>
+    <string name="exercise_type_hint">Type</string>
+    <string name="muscle_input_hint">Enter a muscle</string>
+    <string name="add_muscle_button_text">Add</string>
+    <string name="exercise_title_hint">Exercise Title</string>
+    <string name="description_hint">Description…</string>
 </resources>

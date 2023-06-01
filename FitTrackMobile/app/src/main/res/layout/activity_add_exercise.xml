@@ -12,4 +12,19 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/create_exercise_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/routine_card"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:padding="15dp"
+        android:text="@string/create_exercise_button_text"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/recycler_view"
+        app:backgroundTint="@color/purple_700"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
