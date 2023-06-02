@@ -30,7 +30,8 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun onLoginClick() {
-        startActivity(Intent(this@RegisterActivity, RegisterActivity::class.java))
+        startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
+        finish()
     }
 
     private fun onRegisterButtonClick() {

@@ -14,12 +14,12 @@
     <string name="title_tools">Tools</string>
     <string name="title_user_page">Profile</string>
     <string name="last_workouts_text">Last Workouts</string>
-    <string name="measurements_height">Height</string>
+    <string name="measurements_height">Height(cm)</string>
     <string name="measurements_weight">Weight</string>
     <string name="measurements_age">Age</string>
     <string name="measurements_genre">Genre</string>
     <string name="edit_profile_button_text">Edit Profile</string>
-    <string name="height_edit_hint">Height</string>
+    <string name="height_edit_hint">Height(cm)</string>
     <string name="weight_edit_hint">Weight</string>
     <string name="age_edit_hint">Age</string>
     <string name="genre_edit_hint">Genre</string>
@@ -49,6 +49,17 @@
     <string name="calculate_button_text">Calculate</string>
     <string name="rm_calculator_label">1RM CALCULATOR</string>
     <string name="units_hint">Units</string>
+    <string name="calories_calculator_button_text">CALORIES CALCULATOR</string>
+    <string name="weight_calories_hint">Weight(kg)</string>
+    <string name="height_calories_hint">Height(cm)</string>
+    <string name="activity_factor_hint">Activity Factor</string>
+    <string name="age_hint">Age</string>
+    <string name="gender_hint">Gender</string>
+    <string name="basal_calories_text"><![CDATA[Basal Calories ->]]></string>
+    <string name="maintenance_calories_text"><![CDATA[Maintenance Calories ->]]></string>
+    <string name="weight_wc_hint">Weight(kg)</string>
+    <string name="water_register_text">Water Register</string>
+    <string name="water_calculator_text">Water Calculator</string>
 
     <string-array name="weight_units">
         <item>Kg</item>

@@ -38,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun onRegisterClick() {
         startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        finish()
     }
 
 

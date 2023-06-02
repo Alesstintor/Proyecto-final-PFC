@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ales.fittrackmobile.adapters.ExerciseCustomAdapter
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityAddExerciseBinding
-import com.ales.fittrackmobile.entities.Exercise
 
 class AddExerciseActivity : AppCompatActivity() {
 
@@ -59,15 +58,16 @@ class AddExerciseActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(
             this@AddExerciseActivity, LinearLayoutManager.VERTICAL, false)
 
-        recyclerView.adapter = buildAdapter(userContext.exercisesList.toMutableList())
+        recyclerView.adapter = buildAdapterFromContext()
     }
 
     private fun updateRecyclerView() {
-        binding.recyclerView.adapter = buildAdapter(userContext.exercisesList.toMutableList())
+        binding.recyclerView.adapter = buildAdapterFromContext()
     }
 
-    private fun buildAdapter(exerciseArray: MutableList<Exercise>): ExerciseCustomAdapter {
-        val exerciseAdapter = ExerciseCustomAdapter(exerciseArray)
+    private fun buildAdapterFromContext(): ExerciseCustomAdapter {
+
+        val exerciseAdapter = ExerciseCustomAdapter(userContext.exercisesList.toMutableList())
 
         exerciseAdapter.setOnItemClickListener(object: ExerciseCustomAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {

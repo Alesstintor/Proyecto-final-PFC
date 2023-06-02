@@ -21,6 +21,8 @@ class RMCalculatorActivity : AppCompatActivity() {
         binding = ActivityRmcalculatorBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        title = "1RM Calculator"
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         binding.unitInputValue.setAdapter(getAutocompleteAdapter())

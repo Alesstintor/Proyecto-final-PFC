@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.context.UserContext
@@ -34,8 +33,7 @@ class ExerciseActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        (binding.typeInput.editText as? AutoCompleteTextView)?.setAdapter(
-            getAutocompleteAdapter(getTypesList()))
+        binding.typeInputValue.setAdapter(getAutocompleteAdapter(getTypesList()))
 
         binding.muscleEditText.setAdapter(
             getAutocompleteAdapter(Muscles.values().map { muscles -> muscles.name }))
@@ -95,7 +93,7 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
 
-    private fun setNewExercise() {
+    private fun getExerciseNewValues() {
         exercise.name = binding.titleValue.text.toString()
         exercise.description = binding.descriptionTextField.text.toString()
         exercise.type = binding.typeInputValue.text.toString()
@@ -103,7 +101,7 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun onCreateExerciseButtonClick() {
-        setNewExercise()
+        getExerciseNewValues()
         lifecycleScope.launch{
             try {
                 setSaving(true)

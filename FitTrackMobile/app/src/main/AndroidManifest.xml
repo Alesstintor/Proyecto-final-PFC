@@ -15,6 +15,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".ui.tools.WaterRegisterActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.tools.WaterCalculatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.tools.CaloriesCalculatorActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.tools.RMCalculatorActivity"
             android:exported="false" />
         <activity

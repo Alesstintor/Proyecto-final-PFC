@@ -24,8 +24,23 @@ class ToolsFragment : Fragment() {
         val root: View = binding.root
 
         binding.rmCalculatorButton.setOnClickListener{onRmCalculatorButtonClick()}
+        binding.caloriesCalculatorButton.setOnClickListener{onCaloriesCalculatorButtonClick()}
+        binding.waterCalculatorButton.setOnClickListener{onWaterCalculatorButtonClick()}
+        binding.waterRegisterButton.setOnClickListener{onWaterRegisterButtonClick()}
 
         return root
+    }
+
+    private fun onWaterCalculatorButtonClick() {
+        startActivity(Intent(context, WaterCalculatorActivity::class.java))
+    }
+
+    private fun onWaterRegisterButtonClick() {
+        startActivity(Intent(context, WaterRegisterActivity::class.java))
+    }
+
+    private fun onCaloriesCalculatorButtonClick() {
+        startActivity(Intent(context, CaloriesCalculatorActivity::class.java))
     }
 
     private fun onRmCalculatorButtonClick() {

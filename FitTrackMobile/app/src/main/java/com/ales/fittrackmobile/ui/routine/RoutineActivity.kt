@@ -55,6 +55,25 @@ class RoutineActivity : AppCompatActivity() {
         binding.deleteRoutineButton.setOnClickListener{onDeleteRoutineButtonClick()}
     }
 
+    override fun onResume() {
+        updateRecyclerView()
+        super.onResume()
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                if (isEditing && !isNewRoutine) {
+                    toggleEditMode(false)
+                    return true
+                }
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun onDeleteRoutineButtonClick() {
 
         val builder = AlertDialog.Builder(this)
@@ -66,7 +85,7 @@ class RoutineActivity : AppCompatActivity() {
             deleteRoutine()
         }
 
-        builder.setNegativeButton("Cancel") { dialog, which ->
+        builder.setNegativeButton("Cancel") { _, _ ->
             return@setNegativeButton
         }
 
@@ -89,25 +108,6 @@ class RoutineActivity : AppCompatActivity() {
                 setSavingMode(false)
             }
         }
-    }
-
-    override fun onResume() {
-        updateRecyclerView()
-        super.onResume()
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                if (isEditing && !isNewRoutine) {
-                    toggleEditMode(false)
-                    return true
-                }
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 
     private fun configureInitialState() {
@@ -150,7 +150,7 @@ class RoutineActivity : AppCompatActivity() {
         getExerciseToAdd.launch(Intent(this@RoutineActivity, AddExerciseActivity::class.java))
     }
 
-    private fun saveNewRoutine(newRoutine: Routine) {
+    private fun saveNewRoutineToUser(newRoutine: Routine) {
         userContext.user.routine.add(newRoutine)
     }
 
@@ -170,11 +170,16 @@ class RoutineActivity : AppCompatActivity() {
 
         if (!isNewRoutine) updateExistingRoutine()
 
+        persistRoutine()
+
+    }
+
+    private fun persistRoutine() {
         lifecycleScope.launch {
             try {
                 setSavingMode(true)
                 val newRoutine = userContext.saveRoutine(activeRoutine)
-                if (isNewRoutine) saveNewRoutine(newRoutine)
+                if (isNewRoutine) saveNewRoutineToUser(newRoutine)
                 userContext.updateUser()
                 binding.titleValue.text = activeRoutine.name
                 toggleEditMode(false)
@@ -184,7 +189,6 @@ class RoutineActivity : AppCompatActivity() {
             }
             setSavingMode(false)
         }
-
     }
 
     private fun setSavingMode(isSaving: Boolean) {
