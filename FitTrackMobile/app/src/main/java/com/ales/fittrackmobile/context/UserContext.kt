@@ -8,13 +8,16 @@ import com.ales.fittrackmobile.entities.Routine
 import com.ales.fittrackmobile.entities.User
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.security.MessageDigest
 import java.util.Date
 
 class UserContext: ViewModel() {
 
+    lateinit var sharedPreferences: SharedPreferences
     var user: User = User()
     var recordList: List<Record>? = null
     private val apiManager = ApiManager.getInstance()
@@ -22,7 +25,7 @@ class UserContext: ViewModel() {
     private var tokenCreation = Date()
     var exercisesList: List<Exercise> = ArrayList()
     var routinesList: List<Routine> = ArrayList()
-    lateinit var sharedPreferences: SharedPreferences
+    var digest: MessageDigest = MessageDigest.getInstance("SHA-256")
 
 
     companion object {
@@ -75,6 +78,7 @@ class UserContext: ViewModel() {
     }
 
     suspend fun login(authenticationRequest: AuthenticationRequest) {
+        authenticationRequest.password = encryptPassword(authenticationRequest.password)
         val authResponse = apiManager.userLogin(authenticationRequest).getOrThrow()
         if (authResponse != null) {
             saveToken(authResponse.token)
@@ -82,6 +86,7 @@ class UserContext: ViewModel() {
     }
 
     suspend fun register(registerRequest: RegisterRequest) {
+        registerRequest.password = encryptPassword(registerRequest.password)
         val authResponse = apiManager.userRegister(registerRequest).getOrThrow()
         if (authResponse != null) {
             saveToken(authResponse.token)
@@ -106,6 +111,7 @@ class UserContext: ViewModel() {
         refreshToken()
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     private fun checkToken() {
         GlobalScope.launch(Dispatchers.IO) {
             if (Date().time - tokenCreation.time > 2_400_000) {
@@ -120,6 +126,11 @@ class UserContext: ViewModel() {
         val editor = sharedPreferences.edit()
         editor.putString("authToken", token)
         editor.apply()
+    }
+
+    private fun encryptPassword(password: String): String {
+        val hasedPassword = digest.digest(password.toByteArray())
+        return hasedPassword.joinToString("") { "%02x".format(it) }
     }
 
     fun doLocalTokenExist(): Boolean {

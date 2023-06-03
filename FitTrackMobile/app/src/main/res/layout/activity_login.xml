@@ -19,8 +19,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/login_form"
+        android:contentDescription="@string/logo_from_fittrack_cd" />
+
 
     <LinearLayout
+        android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"

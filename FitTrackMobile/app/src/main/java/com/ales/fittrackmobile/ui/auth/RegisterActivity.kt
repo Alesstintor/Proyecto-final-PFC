@@ -9,9 +9,9 @@ import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityRegisterBinding
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
 import com.ales.fittrackmobile.ui.MainActivity
+import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 import java.lang.Exception
-import java.lang.StringBuilder
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -61,8 +61,9 @@ class RegisterActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 Toast.makeText(this@RegisterActivity,
                     "Registration Error", Toast.LENGTH_LONG).show()
+
+                setLoading(false)
             }
-            setLoading(false)
         }
     }
 
@@ -78,38 +79,21 @@ class RegisterActivity : AppCompatActivity() {
 
     private fun areFieldsOk(): Boolean {
         var fieldsCorrect = true
-        val errorText = StringBuilder()
 
-        if (binding.nameInput.text.isNullOrEmpty()) {
-            errorText.append("Name")
-            fieldsCorrect =  false
-        }
-        if (binding.surnameInput.text.isNullOrEmpty()) {
-            if (!fieldsCorrect) errorText.append(", Surname")
-            else errorText.append("Surname")
-            fieldsCorrect =  false
-        }
-        if (binding.usernameInput.text.isNullOrEmpty()) {
-            if (!fieldsCorrect) errorText.append(", Username")
-            else errorText.append("Username")
-            fieldsCorrect =  false
-        }
-        if (binding.passwordInput.text.isNullOrEmpty()) {
-            if (!fieldsCorrect) errorText.append(" and Password")
-            else errorText.append("Password")
-            fieldsCorrect = false
-        } else {
-            val commaIndex = errorText.indexOfLast { it == Char(44) }
-            errorText.replace(commaIndex, commaIndex + 1, " and")
-        }
-
-        if (!fieldsCorrect) {
-            errorText.append(" Cannot be Empty")
-            Toast.makeText(this@RegisterActivity, errorText, Toast.LENGTH_LONG).show()
-
-        }
-
+        fieldsCorrect = isFieldOk(binding.nameInput) && fieldsCorrect
+        fieldsCorrect = isFieldOk(binding.surnameInput) && fieldsCorrect
+        fieldsCorrect = isFieldOk(binding.usernameInput) && fieldsCorrect
+        fieldsCorrect = isFieldOk(binding.passwordInput) && fieldsCorrect
 
         return fieldsCorrect
+    }
+
+    private fun isFieldOk(field: TextInputEditText): Boolean {
+        if (field.text.isNullOrEmpty()) {
+            field.error = "You must enter this field"
+            return false
+        }
+        field.error = null
+        return true
     }
 }

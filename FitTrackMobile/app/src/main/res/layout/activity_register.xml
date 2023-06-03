@@ -19,12 +19,25 @@
         app:layout_constraintBottom_toBottomOf="parent"
         />
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:background="@drawable/logo"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/register_form"
+        android:contentDescription="@string/logo_from_fittrack_cd" />
+
 
     <LinearLayout
+        android:id="@+id/register_form"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
+        android:layout_marginTop="100dp"
         android:layout_marginHorizontal="50dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

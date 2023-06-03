@@ -6,6 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".ui.tools.WaterRegisterActivity">
 
+    <ImageView
+        android:id="@+id/water_glass_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/baseline_local_drink_96"
+        android:contentDescription="@string/water_glass_image_cd"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/water_glasses_number"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/glasses_taken_today_text"
+        android:textColor="@color/black"
+        android:layout_marginTop="20dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@id/water_glass_image"
+        app:layout_constraintStart_toStartOf="@id/water_glass_image"
+        app:layout_constraintEnd_toEndOf="@id/water_glass_image" />
+
     <androidx.appcompat.widget.AppCompatImageButton
         android:id="@+id/remove_button"
         android:layout_width="wrap_content"
