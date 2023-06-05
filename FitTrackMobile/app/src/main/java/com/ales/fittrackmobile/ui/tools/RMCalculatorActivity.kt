@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.databinding.ActivityRmcalculatorBinding
-import com.google.android.material.R
+import com.ales.fittrackmobile.helpers.Autocomplete.Companion.getAutocompleteAdapter
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.InputMismatchException
@@ -25,7 +25,7 @@ class RMCalculatorActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        binding.unitInputValue.setAdapter(getAutocompleteAdapter())
+        binding.unitInputValue.setAdapter(getAutocompleteAdapter(getUnitList(), this@RMCalculatorActivity))
 
         binding.calculateButton.setOnClickListener{onCalculateButtonClick()}
     }
@@ -40,21 +40,12 @@ class RMCalculatorActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun getAutocompleteAdapter(): ArrayAdapter<String> {
-        val list = listOf("Kg", "Lb")
-        return ArrayAdapter(
-            this@RMCalculatorActivity,
-            R.layout.support_simple_spinner_dropdown_item,
-            list
-        )
-    }
-
     private fun onCalculateButtonClick() {
         val weight: Int
         val reps: Int
         try {
-            weight = checkValues(binding.weightRmValue.text)
-            reps = checkValues(binding.repsRmValue.text)
+            weight = getValues(binding.weightRmValue.text)
+            reps = getValues(binding.repsRmValue.text)
         } catch (e: InputMismatchException) {
             Toast.makeText(this@RMCalculatorActivity,
                 "You must enter valid values", Toast.LENGTH_SHORT).show()
@@ -78,8 +69,12 @@ class RMCalculatorActivity : AppCompatActivity() {
         return result.setScale(2, RoundingMode.FLOOR).toDouble()
     }
 
-    private fun checkValues(field : Editable?): Int {
+    private fun getValues(field : Editable?): Int {
         if (field?.isEmpty() == true) throw InputMismatchException()
         return field.toString().toInt()
+    }
+
+    private fun getUnitList(): List<String> {
+        return resources.getStringArray(R.array.weight_unit_list).toList()
     }
 }

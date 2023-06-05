@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="exercise_types">
+        <item>Weight x Reps</item>
+    </string-array>
+    
+    <string-array name="calories_activity_factor">
+        <item>Sedentary (No training)</item>
+        <item>Low (1–3 times a week)</item>
+        <item>Moderate (3–5 times a week)</item>
+        <item>High (6–7 times a week)</item>
+        <item>Athlete (+4 hours a day)</item>
+    </string-array>
+
+    <string-array name="water_activity_factor">
+        <item>Sedentary (No training)</item>,
+        <item>Low (1–3 times a week)</item>,
+        <item>Moderate (3–5 times a week)</item>,
+        <item>High (+6 times a week)</item>,
+    </string-array>
+
+    <string-array name="genders_list">
+        <item>Masculine</item>
+        <item>Feminine</item>
+    </string-array>
+
+    <string-array name="weight_unit_list">
+        <item>Kg</item>
+        <item>Lb</item>
+    </string-array>
+
+    <string-array name="volume_unit_list">
+        <item>Litres</item>
+        <item>Ounces</item>
+    </string-array>
+</resources>

@@ -55,11 +55,6 @@ class RoutineActivity : AppCompatActivity() {
         binding.deleteRoutineButton.setOnClickListener{onDeleteRoutineButtonClick()}
     }
 
-    override fun onResume() {
-        updateRecyclerView()
-        super.onResume()
-    }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> {
@@ -72,6 +67,21 @@ class RoutineActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun configureInitialState() {
+        if (isNewRoutine) {
+            createRecyclerView(emptyList<Exercise>().toMutableList())
+            activeRoutine.name = "Routine"
+        } else {
+
+            val userRoutine = userContext.user.routine.first{ routine -> routine.id == routineId }
+            setActiveRoutine(userRoutine)
+
+            createRecyclerView(activeRoutine.exerciseList)
+        }
+
+        toggleEditMode(isNewRoutine)
     }
 
     private fun onDeleteRoutineButtonClick() {
@@ -110,21 +120,6 @@ class RoutineActivity : AppCompatActivity() {
         }
     }
 
-    private fun configureInitialState() {
-        if (isNewRoutine) {
-            createRecyclerView(emptyList<Exercise>().toMutableList())
-            activeRoutine.name = "Routine"
-        } else {
-
-            val userRoutine = userContext.user.routine.first{ routine -> routine.id == routineId }
-            setActiveRoutine(userRoutine)
-
-            createRecyclerView(activeRoutine.exerciseList)
-        }
-
-        toggleEditMode(isNewRoutine)
-    }
-
     private fun setActiveRoutine(routine: Routine) {
         activeRoutine.id = routine.id
         activeRoutine.name = routine.name
@@ -150,19 +145,6 @@ class RoutineActivity : AppCompatActivity() {
         getExerciseToAdd.launch(Intent(this@RoutineActivity, AddExerciseActivity::class.java))
     }
 
-    private fun saveNewRoutineToUser(newRoutine: Routine) {
-        userContext.user.routine.add(newRoutine)
-    }
-
-    private fun updateExistingRoutine() {
-        val routineIterator = userContext.user.routine.listIterator()
-
-        while (routineIterator.hasNext()) {
-            val routine = routineIterator.next()
-            if (routine.id == routineId) routineIterator.set(activeRoutine)
-        }
-    }
-
     private fun onSaveRoutineButtonClick() {
         if (binding.titleValueEdit.text.isNotEmpty()) {
             activeRoutine.name = binding.titleValueEdit.text.toString()
@@ -172,6 +154,15 @@ class RoutineActivity : AppCompatActivity() {
 
         persistRoutine()
 
+    }
+
+    private fun updateExistingRoutine() {
+        val routineIterator = userContext.user.routine.listIterator()
+
+        while (routineIterator.hasNext()) {
+            val routine = routineIterator.next()
+            if (routine.id == routineId) routineIterator.set(activeRoutine)
+        }
     }
 
     private fun persistRoutine() {
@@ -189,6 +180,10 @@ class RoutineActivity : AppCompatActivity() {
             }
             setSavingMode(false)
         }
+    }
+
+    private fun saveNewRoutineToUser(newRoutine: Routine) {
+        userContext.user.routine.add(newRoutine)
     }
 
     private fun setSavingMode(isSaving: Boolean) {
@@ -222,15 +217,6 @@ class RoutineActivity : AppCompatActivity() {
         recyclerView.adapter = buildAdapter(exerciseList)
     }
 
-    private fun updateRecyclerView() {
-        exerciseAdapter.updateItems(activeRoutine.exerciseList)
-    }
-
-    private fun showDeleteButtons(show: Boolean) {
-        exerciseAdapter.setDeleteButtonVisible(show)
-        updateRecyclerView()
-    }
-
     private fun buildAdapter(exerciseList: MutableList<Exercise>): ExerciseCustomAdapter {
         val adapter = ExerciseCustomAdapter(exerciseList.toMutableList())
         adapter.setOnDeleteItemClickListener(object: ExerciseCustomAdapter.OnDeleteItemClickListener {
@@ -242,5 +228,14 @@ class RoutineActivity : AppCompatActivity() {
         })
         exerciseAdapter = adapter
         return adapter
+    }
+
+    private fun updateRecyclerView() {
+        exerciseAdapter.updateItems(activeRoutine.exerciseList)
+    }
+
+    private fun showDeleteButtons(show: Boolean) {
+        exerciseAdapter.setDeleteButtonVisible(show)
+        updateRecyclerView()
     }
 }

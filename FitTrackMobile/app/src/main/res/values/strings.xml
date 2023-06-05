@@ -63,9 +63,4 @@
     <string name="glasses_taken_today_text">Glasses taken today (250ml)</string>
     <string name="water_glass_image_cd">Water Glass Image</string>
     <string name="logo_from_fittrack_cd">Logo from FitTrack</string>
-
-    <string-array name="weight_units">
-        <item>Kg</item>
-        <item>Lb</item>
-    </string-array>
 </resources>

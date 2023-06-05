@@ -49,11 +49,6 @@ class UserPageFragment : Fragment() {
         activity?.finish()
     }
 
-    override fun onResume() {
-        super.onResume()
-        loadUser()
-    }
-
     private fun loadUser() {
         binding.nameValue.text = userContext.user.name
         binding.heightValue.text = userContext.user.height.toString()

@@ -3,13 +3,14 @@ package com.ales.fittrackmobile.ui.exercise
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityExerciseBinding
 import com.ales.fittrackmobile.entities.Exercise
 import com.ales.fittrackmobile.entities.Muscles
+import com.ales.fittrackmobile.helpers.Autocomplete.Companion.getAutocompleteAdapter
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.launch
@@ -33,10 +34,11 @@ class ExerciseActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        binding.typeInputValue.setAdapter(getAutocompleteAdapter(getTypesList()))
+        binding.typeInputValue.setAdapter(
+            getAutocompleteAdapter(getTypesList(), this@ExerciseActivity))
 
-        binding.muscleEditText.setAdapter(
-            getAutocompleteAdapter(Muscles.values().map { muscles -> muscles.name }))
+        binding.muscleEditText.setAdapter(getAutocompleteAdapter(
+            Muscles.values().map { muscles -> muscles.name }, this@ExerciseActivity))
 
         val exerciseId = intent.getLongExtra("EXERCISEID", -1L)
 
@@ -54,18 +56,6 @@ class ExerciseActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun getAutocompleteAdapter(list: List<String>): ArrayAdapter<String> {
-
-        return ArrayAdapter(
-            this@ExerciseActivity,
-            com.google.android.material.R.layout.support_simple_spinner_dropdown_item,
-            list)
-    }
-
-    private fun getTypesList(): List<String> {
-        return listOf("Weight x Reps")
     }
 
     private fun setExistingExercise(exerciseId: Long) {
@@ -152,5 +142,9 @@ class ExerciseActivity : AppCompatActivity() {
     private fun setSaving(isSaving: Boolean) {
         binding.createExerciseButton.isEnabled = !isSaving
         binding.addMuscleButton.isEnabled = !isSaving
+    }
+
+    private fun getTypesList(): List<String> {
+        return resources.getStringArray(R.array.exercise_types).toList()
     }
 }

@@ -7,6 +7,11 @@ import com.ales.fittrackmobile.entities.User
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
 import com.ales.fittrackmobile.entities.auth.AuthenticationResponse
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
+import com.ales.fittrackmobile.exceptions.FetchUnsuccessfulException
+import com.ales.fittrackmobile.exceptions.LoginUnsuccessfulException
+import com.ales.fittrackmobile.exceptions.PatchUnsuccessfulException
+import com.ales.fittrackmobile.exceptions.PutUnsuccessfulException
+import com.ales.fittrackmobile.exceptions.RegisterUnsuccessfulException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.*
@@ -45,7 +50,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("LOGIN", "Login Unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(LoginUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("LOGIN", "Error on Login")
@@ -64,7 +69,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("REGISTER", "Register Unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(RegisterUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("REGISTER", "Error on Register")
@@ -83,7 +88,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("USERDATA", "Fetch Unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("USERDATA", "Error on Fetch")
@@ -102,7 +107,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("USERUPDATE", "Patch Unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(PatchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("USERUPDATE", "Error on Patch")
@@ -121,7 +126,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("TOKEN", "Token refresh unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("TOKEN", "Error on token refresh")
@@ -140,7 +145,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("EXERCISES", "Fetch unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("EXERCISES", "Error on Fetch")
@@ -159,7 +164,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("ROUTINES", "Fetch unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("ROUTINES", "Error on Fetch")
@@ -179,7 +184,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("ROUTINE", "Saving unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(PutUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("ROUTINE", "Error on Saving")
@@ -198,7 +203,7 @@ class ApiManager {
                     Result.success(data)
                 } else {
                     Log.i("EXERCISE", "Saving unsuccessful")
-                    Result.failure(Exception(response.message()))
+                    Result.failure(PutUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
                 Log.e("EXERCISE", "Error on Saving")
@@ -207,26 +212,4 @@ class ApiManager {
             }
         }
     }
-//    fun updateUser(user: User) {
-//        apiAccess.updateUser(user).enqueue(object: Callback<User> {
-//            override fun onResponse(call: Call<User>, response: Response<User>) {
-//                try {
-//
-//                    if (!response.isSuccessful) return
-//
-//                    response.body() ?: User()
-//
-//                    Toast.makeText(context, "User Updated", Toast.LENGTH_SHORT).show()
-//
-//
-//                } catch (e: Exception) {
-//                    Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
-//                }
-//            }
-//
-//            override fun onFailure(call: Call<User>, t: Throwable) {
-//                Toast.makeText(context, "Connection Error", Toast.LENGTH_SHORT).show()
-//            }
-//        })
-//    }
 }

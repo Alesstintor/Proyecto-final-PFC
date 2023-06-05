@@ -19,9 +19,9 @@ class ExerciseCustomAdapter(private val data: MutableList<Exercise>) :
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        val lblTitulo = view.findViewById(R.id.list_item_title) as TextView
-        val lblSubtitulo = view.findViewById(R.id.list_item_description) as TextView
-        val deleteButton = view.findViewById(R.id.delete_button) as AppCompatImageButton
+        private val lblTitulo = view.findViewById(R.id.list_item_title) as TextView
+        private val lblSubtitulo = view.findViewById(R.id.list_item_description) as TextView
+        private val deleteButton = view.findViewById(R.id.delete_button) as AppCompatImageButton
 
         fun bindItem(exercise: Exercise, deleteButtonVisible: Boolean){
             lblTitulo.text = exercise.name
@@ -35,7 +35,7 @@ class ExerciseCustomAdapter(private val data: MutableList<Exercise>) :
             }
         }
 
-        fun showDeleteButton(show: Boolean) {
+        private fun showDeleteButton(show: Boolean) {
             deleteButton.visibility = if (show) View.VISIBLE else View.GONE
         }
     }

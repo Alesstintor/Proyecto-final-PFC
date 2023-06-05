@@ -4,12 +4,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityCaloriesCalculatorBinding
-import com.google.android.material.R
-import com.google.android.material.textfield.TextInputEditText
+import com.ales.fittrackmobile.helpers.Autocomplete.Companion.getAutocompleteAdapter
+import com.ales.fittrackmobile.helpers.FieldChecker.Companion.checkField
 import kotlin.math.roundToInt
 
 class CaloriesCalculatorActivity : AppCompatActivity() {
@@ -30,8 +29,12 @@ class CaloriesCalculatorActivity : AppCompatActivity() {
         setUpInitialValues()
 
         binding.calculateButton.setOnClickListener{onCalculateButtonClick()}
-        binding.genderValue.setAdapter(getAutocompleteAdapter(listOf("Man", "Woman")))
-        binding.activityFactorInputValue.setAdapter(getAutocompleteAdapter(getActivityFactorList()))
+
+        binding.genderValue.setAdapter(getAutocompleteAdapter(
+            getGenderList(), this@CaloriesCalculatorActivity))
+
+        binding.activityFactorInputValue.setAdapter(getAutocompleteAdapter(
+            getActivityFactorList(), this@CaloriesCalculatorActivity))
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -63,12 +66,11 @@ class CaloriesCalculatorActivity : AppCompatActivity() {
         val activityFactor = getActivityFactor()
 
         val result: CalorieResult =
-            if (gender == "Man") {
+            if (gender == getGenderList()[0]) {
             calculateCaloriesMen(CalorieProfile(weight, height, age, activityFactor))
             } else {
                 calculateCaloriesWomen(CalorieProfile(weight, height, age, activityFactor))
             }
-
 
         showResult(result)
     }
@@ -82,12 +84,13 @@ class CaloriesCalculatorActivity : AppCompatActivity() {
     }
 
     private fun getActivityFactor(): Double {
+        val activityFactorList = getActivityFactorList()
         return when(binding.activityFactorInputValue.text.toString()) {
-            "Sedentary (No training)" -> 1.2
-            "Low (1-3 times a week)" -> 1.375
-            "Moderate (3-5 times a week)" -> 1.55
-            "High (6-7 times a week)" -> 1.725
-            "Athlete (+4 hours a day)" -> 1.9
+            activityFactorList[0] -> 1.2
+            activityFactorList[1] -> 1.375
+            activityFactorList[2] -> 1.55
+            activityFactorList[3] -> 1.725
+            activityFactorList[4] -> 1.9
             else -> 1.2
         }
     }
@@ -121,46 +124,18 @@ class CaloriesCalculatorActivity : AppCompatActivity() {
         fieldsOk = checkField(binding.weightValue) && fieldsOk
         fieldsOk = checkField(binding.heightValue) && fieldsOk
         fieldsOk = checkField(binding.ageValue) && fieldsOk
-        fieldsOk = checkAutocompleteField(binding.genderValue) && fieldsOk
-        fieldsOk = checkAutocompleteField(binding.activityFactorInputValue) && fieldsOk
+        fieldsOk = checkField(binding.genderValue) && fieldsOk
+        fieldsOk = checkField(binding.activityFactorInputValue) && fieldsOk
 
         return fieldsOk
     }
 
-    private fun checkField(field: TextInputEditText): Boolean {
-        if (field.text.isNullOrEmpty()) {
-            field.error = "You must enter this field"
-            return false
-        }
-        field.error = null
-        return true
-    }
-
-    private fun checkAutocompleteField(field: AutoCompleteTextView): Boolean {
-        if (field.text.isNullOrEmpty()) {
-            field.error = "You must enter this field"
-            return false
-        }
-        field.error = null
-        return true
-    }
-
     private fun getActivityFactorList(): List<String> {
-        return listOf(
-            "Sedentary (No training)",
-            "Low (1-3 times a week)",
-            "Moderate (3-5 times a week)",
-            "High (6-7 times a week)",
-            "Athlete (+4 hours a day)",
-        )
+        return resources.getStringArray(R.array.calories_activity_factor).toList()
     }
 
-    private fun getAutocompleteAdapter(list: List<String>): ArrayAdapter<String> {
-        return ArrayAdapter(
-            this@CaloriesCalculatorActivity,
-            R.layout.support_simple_spinner_dropdown_item,
-            list
-        )
+    private fun getGenderList(): List<String> {
+        return resources.getStringArray(R.array.genders_list).toList()
     }
 
     data class CalorieProfile(

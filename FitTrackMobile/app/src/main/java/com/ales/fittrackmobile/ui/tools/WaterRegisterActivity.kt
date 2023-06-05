@@ -33,6 +33,17 @@ class WaterRegisterActivity : AppCompatActivity() {
         binding.removeButton.setOnClickListener{onRemoveButtonClick()}
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                saveLastValue()
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun onRemoveButtonClick() {
         if (waterValue <= 0) return
         waterValue--
@@ -63,10 +74,10 @@ class WaterRegisterActivity : AppCompatActivity() {
         val nowCalendar = Calendar.getInstance()
         lastGlassCalendar.timeInMillis = lastGlass
 
-        if (!areSameDay(lastGlassCalendar, nowCalendar)) {
+        if (areSameDay(lastGlassCalendar, nowCalendar)) return
+
         waterValue = 0
         lastGlass = System.currentTimeMillis()
-        }
     }
 
     private fun areSameDay(calendar1: Calendar, calendar2: Calendar): Boolean {
@@ -79,16 +90,5 @@ class WaterRegisterActivity : AppCompatActivity() {
         val day2 = calendar2.get(Calendar.DAY_OF_MONTH)
 
         return year1 == year2 && month1 == month2 && day1 == day2
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> {
-                saveLastValue()
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
     }
 }
