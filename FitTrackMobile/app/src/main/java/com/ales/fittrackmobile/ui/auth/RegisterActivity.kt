@@ -8,8 +8,8 @@ import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityRegisterBinding
 import com.ales.fittrackmobile.entities.auth.RegisterRequest
+import com.ales.fittrackmobile.helpers.FieldChecker.Companion.checkField
 import com.ales.fittrackmobile.ui.MainActivity
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -57,6 +57,8 @@ class RegisterActivity : AppCompatActivity() {
             try {
                 userContext.register(registerRequest)
                 userContext.fetchUserData()
+                userContext.fetchExercisesData()
+                userContext.fetchRoutinesData()
                 startActivity(Intent(this@RegisterActivity, MainActivity::class.java))
             } catch (e: Exception) {
                 Toast.makeText(this@RegisterActivity,
@@ -80,20 +82,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun areFieldsOk(): Boolean {
         var fieldsCorrect = true
 
-        fieldsCorrect = isFieldOk(binding.nameInput) && fieldsCorrect
-        fieldsCorrect = isFieldOk(binding.surnameInput) && fieldsCorrect
-        fieldsCorrect = isFieldOk(binding.usernameInput) && fieldsCorrect
-        fieldsCorrect = isFieldOk(binding.passwordInput) && fieldsCorrect
+        fieldsCorrect = checkField(binding.nameInput) && fieldsCorrect
+        fieldsCorrect = checkField(binding.surnameInput) && fieldsCorrect
+        fieldsCorrect = checkField(binding.usernameInput) && fieldsCorrect
+        fieldsCorrect = checkField(binding.passwordInput) && fieldsCorrect
 
         return fieldsCorrect
-    }
-
-    private fun isFieldOk(field: TextInputEditText): Boolean {
-        if (field.text.isNullOrEmpty()) {
-            field.error = "You must enter this field"
-            return false
-        }
-        field.error = null
-        return true
     }
 }

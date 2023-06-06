@@ -16,9 +16,6 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private lateinit var userContext: UserContext
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -43,6 +40,11 @@ class HomeFragment : Fragment() {
         updateRecyclerView()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     private fun updateRecyclerView() {
         binding.recyclerView.adapter =
             RoutineCustomAdapter(userContext.user.routine.toTypedArray(), this.requireContext())
@@ -63,10 +65,5 @@ class HomeFragment : Fragment() {
 
         recyclerView.adapter =
             RoutineCustomAdapter(userContext.user.routine.toTypedArray(), this.requireContext())
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

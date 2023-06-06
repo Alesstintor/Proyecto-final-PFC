@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.adapters.ExerciseCustomAdapter
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityAddExerciseBinding
@@ -23,6 +24,8 @@ class AddExerciseActivity : AppCompatActivity() {
         userContext = UserContext.getInstance()
 
         createRecyclerView()
+
+        title = getString(R.string.add_exercise_title)
 
          supportActionBar?.setDisplayHomeAsUpEnabled(true)
 

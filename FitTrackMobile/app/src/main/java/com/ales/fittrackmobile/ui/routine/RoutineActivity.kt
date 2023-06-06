@@ -42,6 +42,8 @@ class RoutineActivity : AppCompatActivity() {
 
         configureInitialState()
 
+        title = activeRoutine.name
+
         getExerciseToAdd = makeRegisterForActivityResult()
 
         binding.titleValueEdit.setText(activeRoutine.name)

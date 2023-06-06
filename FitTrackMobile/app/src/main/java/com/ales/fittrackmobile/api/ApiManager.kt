@@ -87,7 +87,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("USERDATA", "Fetch Unsuccessful")
+                    Log.w("USERDATA", "Fetch Unsuccessful")
                     Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
@@ -106,7 +106,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("USERUPDATE", "Patch Unsuccessful")
+                    Log.w("USERUPDATE", "Patch Unsuccessful")
                     Result.failure(PatchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
@@ -125,7 +125,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("TOKEN", "Token refresh unsuccessful")
+                    Log.w("TOKEN", "Token refresh unsuccessful")
                     Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
@@ -144,7 +144,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("EXERCISES", "Fetch unsuccessful")
+                    Log.w("EXERCISES", "Fetch unsuccessful")
                     Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
@@ -163,7 +163,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("ROUTINES", "Fetch unsuccessful")
+                    Log.w("ROUTINES", "Fetch unsuccessful")
                     Result.failure(FetchUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
@@ -183,7 +183,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("ROUTINE", "Saving unsuccessful")
+                    Log.w("ROUTINE", "Saving unsuccessful")
                     Result.failure(PutUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {
@@ -202,7 +202,7 @@ class ApiManager {
                     val data = response.body()
                     Result.success(data)
                 } else {
-                    Log.i("EXERCISE", "Saving unsuccessful")
+                    Log.w("EXERCISE", "Saving unsuccessful")
                     Result.failure(PutUnsuccessfulException(response.message()))
                 }
             } catch (e: Exception) {

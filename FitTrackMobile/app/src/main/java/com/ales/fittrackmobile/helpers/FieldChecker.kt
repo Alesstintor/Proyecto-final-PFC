@@ -1,12 +1,12 @@
 package com.ales.fittrackmobile.helpers
 
 import android.widget.AutoCompleteTextView
-import com.google.android.material.textfield.TextInputEditText
+import android.widget.EditText
 
 class FieldChecker {
 
     companion object {
-        fun checkField(field: TextInputEditText): Boolean {
+        fun checkField(field: EditText): Boolean {
             if (field.text.isNullOrEmpty()) {
                 field.error = "You must enter this field"
                 return false

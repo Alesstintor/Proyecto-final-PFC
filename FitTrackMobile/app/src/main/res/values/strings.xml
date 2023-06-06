@@ -15,12 +15,12 @@
     <string name="title_user_page">Profile</string>
     <string name="last_workouts_text">Last Workouts</string>
     <string name="measurements_height">Height(cm)</string>
-    <string name="measurements_weight">Weight</string>
+    <string name="measurements_weight">Weight(kg)</string>
     <string name="measurements_age">Age</string>
     <string name="measurements_genre">Genre</string>
     <string name="edit_profile_button_text">Edit Profile</string>
     <string name="height_edit_hint">Height(cm)</string>
-    <string name="weight_edit_hint">Weight</string>
+    <string name="weight_edit_hint">Weight(kg)</string>
     <string name="age_edit_hint">Age</string>
     <string name="genre_edit_hint">Genre</string>
     <string name="done_edit_button_text">Done</string>
@@ -55,12 +55,14 @@
     <string name="activity_factor_hint">Activity Factor</string>
     <string name="age_hint">Age</string>
     <string name="gender_hint">Gender</string>
-    <string name="basal_calories_text"><![CDATA[Basal Calories ->]]></string>
-    <string name="maintenance_calories_text"><![CDATA[Maintenance Calories ->]]></string>
+    <string name="basal_calories_text">Basal Cal. -></string>
+    <string name="maintenance_calories_text">Maintenance Cal. -></string>
     <string name="weight_wc_hint">Weight(kg)</string>
     <string name="water_register_text">Water Register</string>
     <string name="water_calculator_text">Water Calculator</string>
     <string name="glasses_taken_today_text">Glasses taken today (250ml)</string>
     <string name="water_glass_image_cd">Water Glass Image</string>
     <string name="logo_from_fittrack_cd">Logo from FitTrack</string>
+    <string name="add_exercise_title">Add Exercise</string>
+    <string name="create_exercise_title">Create Exercise</string>
 </resources>

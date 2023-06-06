@@ -11,6 +11,7 @@ import com.ales.fittrackmobile.databinding.ActivityExerciseBinding
 import com.ales.fittrackmobile.entities.Exercise
 import com.ales.fittrackmobile.entities.Muscles
 import com.ales.fittrackmobile.helpers.Autocomplete.Companion.getAutocompleteAdapter
+import com.ales.fittrackmobile.helpers.FieldChecker.Companion.checkField
 import com.google.android.material.chip.Chip
 import com.google.android.material.chip.ChipGroup
 import kotlinx.coroutines.launch
@@ -32,6 +33,8 @@ class ExerciseActivity : AppCompatActivity() {
         chipGroup = binding.chipGroup
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        title = getString(R.string.create_exercise_title)
 
 
         binding.typeInputValue.setAdapter(
@@ -91,6 +94,7 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun onCreateExerciseButtonClick() {
+        if (!areFieldsOk()) return
         getExerciseNewValues()
         lifecycleScope.launch{
             try {
@@ -104,6 +108,12 @@ class ExerciseActivity : AppCompatActivity() {
                 setSaving(false)
             }
         }
+    }
+
+    private fun areFieldsOk(): Boolean {
+        var fieldsOk = checkField(binding.titleValue)
+        fieldsOk = checkField(binding.descriptionTextField) && fieldsOk
+        return fieldsOk
     }
 
     private fun onAddMuscleButtonClick() {

@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import com.ales.fittrackmobile.context.UserContext
 import com.ales.fittrackmobile.databinding.ActivityLoginBinding
 import com.ales.fittrackmobile.entities.auth.AuthenticationRequest
+import com.ales.fittrackmobile.helpers.FieldChecker.Companion.checkField
 import com.ales.fittrackmobile.ui.MainActivity
-import com.google.android.material.textfield.TextInputEditText
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
@@ -59,19 +59,10 @@ class LoginActivity : AppCompatActivity() {
 
     private fun areFieldsOk(): Boolean {
 
-        var fieldsCorrect = isFieldOk(binding.usernameInput)
-        fieldsCorrect = isFieldOk(binding.passwordInput) && fieldsCorrect
+        var fieldsCorrect = checkField(binding.usernameInput)
+        fieldsCorrect = checkField(binding.passwordInput) && fieldsCorrect
 
         return fieldsCorrect
-    }
-
-    private fun isFieldOk(field: TextInputEditText): Boolean {
-        if (field.text.isNullOrEmpty()) {
-            field.error = "You must enter this field"
-            return false
-        }
-        field.error = null
-        return true
     }
 
     private fun doLogin(authRequest: AuthenticationRequest) {

@@ -8,6 +8,7 @@ import android.widget.Toast
 import com.ales.fittrackmobile.R
 import com.ales.fittrackmobile.databinding.ActivityRmcalculatorBinding
 import com.ales.fittrackmobile.helpers.Autocomplete.Companion.getAutocompleteAdapter
+import com.ales.fittrackmobile.helpers.FieldChecker.Companion.checkField
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.util.InputMismatchException
@@ -41,6 +42,9 @@ class RMCalculatorActivity : AppCompatActivity() {
     }
 
     private fun onCalculateButtonClick() {
+        val fieldsOk = checkField(binding.weightRmValue)
+        if (!checkField(binding.repsRmValue) || !fieldsOk) return
+
         val weight: Int
         val reps: Int
         try {

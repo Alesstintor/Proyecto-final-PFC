@@ -18,11 +18,9 @@ class RoutineCustomAdapter(private val data: Array<Routine>, val context: Contex
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val lblTitulo = view.findViewById(R.id.list_item_title) as TextView
-        private val lblSubtitulo = view.findViewById(R.id.list_item_description) as TextView
 
         fun bindItem(routine: Routine){
             lblTitulo.text = routine.name
-            lblSubtitulo.text = routine.description
         }
     }
 

@@ -15,9 +15,6 @@ import com.ales.fittrackmobile.ui.auth.LoginActivity
 class UserPageFragment : Fragment() {
 
     private var _binding: FragmentUserPageBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     private lateinit var userContext: UserContext
@@ -41,6 +38,11 @@ class UserPageFragment : Fragment() {
         binding.logoutButton.setOnClickListener{onLogoutButtonClick()}
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadUser()
     }
 
     private fun onLogoutButtonClick() {
