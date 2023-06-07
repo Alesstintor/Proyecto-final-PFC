@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RecordControllerImpl implements IRecordController {
 
-
     private final IRecordService recordService;
 
     @GetMapping

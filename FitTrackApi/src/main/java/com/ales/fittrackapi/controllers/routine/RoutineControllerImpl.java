@@ -14,7 +14,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RoutineControllerImpl implements IRoutineController {
 
-
     private final IRoutineService routineService;
 
     @GetMapping
@@ -60,7 +59,6 @@ public class RoutineControllerImpl implements IRoutineController {
 
     @PutMapping
     public Routine update(@RequestBody Routine routine) {
-        System.out.println(routine);
         return routineService.update(routine);
     }
 

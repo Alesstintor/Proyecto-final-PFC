@@ -56,7 +56,6 @@ public class RoutineServiceImpl implements IRoutineService{
         routineRepository.deleteAll(routinesToDelete);
     }
 
-
     @Override
     public Routine update(Routine routine) {
         findById(routine.getId());
