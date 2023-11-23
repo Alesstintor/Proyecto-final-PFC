@@ -32,7 +32,7 @@ class ApiManager {
     }
 
     private val retrofit: Retrofit = Retrofit.Builder()
-                                        .baseUrl("http://144.24.197.53:8080")
+                                        .baseUrl("http://x.x.x.x:8080") // Change this
                                         .client(HttpClient().client)
                                         .addConverterFactory(GsonConverterFactory.create())
                                         .build()
